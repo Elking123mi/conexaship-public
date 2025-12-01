@@ -93,6 +93,16 @@ class _HomeScreenState extends State<HomeScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
             child: Row(
               children: [
+                // Menu Button (Drawer)
+                IconButton(
+                  icon: const Icon(Icons.menu, color: Colors.white, size: 28),
+                  onPressed: () {
+                    Scaffold.of(context).openDrawer();
+                  },
+                  tooltip: 'Menu',
+                ),
+                const SizedBox(width: 16),
+                
                 // Logo
                 Row(
                   children: [

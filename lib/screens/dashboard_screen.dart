@@ -19,10 +19,10 @@ class DashboardScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Dashboard'),
         actions: [
-          IconButton(
+            IconButton(
             icon: const Icon(Icons.notifications),
             onPressed: () {
-              // TODO: Ver notificaciones
+              // TODO: View notifications
             },
           ),
           IconButton(
@@ -37,9 +37,9 @@ class DashboardScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Saludo personalizado
+            // Personalized greeting
             Text(
-              '¡Hola, ${customer?.firstName ?? "Usuario"}! 👋',
+              'Hello, ${customer?.firstName ?? "User"}! 👋',
               style: TextStyle(
                 fontSize: isDesktop ? 32 : 24,
                 fontWeight: FontWeight.bold,
@@ -47,7 +47,7 @@ class DashboardScreen extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              'Bienvenido a tu panel de control',
+              'Welcome to your control panel',
               style: TextStyle(
                 fontSize: isDesktop ? 18 : 16,
                 color: Colors.grey[600],
@@ -55,17 +55,17 @@ class DashboardScreen extends StatelessWidget {
             ),
             const SizedBox(height: 24),
 
-            // Tarjetas de estadísticas rápidas
+            // Quick stats cards
             if (isDesktop)
               Row(
                 children: [
                   Expanded(
                     child: _QuickStatCard(
                       icon: Icons.shopping_bag,
-                      title: 'Pedidos Activos',
+                      title: 'Active Orders',
                       value: '3',
                       color: Colors.blue,
-                      subtitle: '2 en camino',
+                      subtitle: '2 on the way',
                       onTap: () => context.push('/orders'),
                     ),
                   ),
@@ -73,7 +73,7 @@ class DashboardScreen extends StatelessWidget {
                   Expanded(
                     child: _QuickStatCard(
                       icon: Icons.shopping_cart,
-                      title: 'En Carrito',
+                      title: 'In Cart',
                       value: '${cartProvider.itemCount}',
                       color: Colors.orange,
                       subtitle: '\$${cartProvider.total.toStringAsFixed(2)}',
@@ -84,12 +84,12 @@ class DashboardScreen extends StatelessWidget {
                   Expanded(
                     child: _QuickStatCard(
                       icon: Icons.favorite,
-                      title: 'Favoritos',
+                      title: 'Wishlist',
                       value: '12',
                       color: Colors.red,
-                      subtitle: '3 con descuento',
+                      subtitle: '3 with discount',
                       onTap: () {
-                        // TODO: Ver favoritos
+                        // TODO: View wishlist
                       },
                     ),
                   ),
@@ -97,12 +97,12 @@ class DashboardScreen extends StatelessWidget {
                   Expanded(
                     child: _QuickStatCard(
                       icon: Icons.star,
-                      title: 'Puntos',
+                      title: 'Points',
                       value: '850',
                       color: Colors.amber,
-                      subtitle: 'Nivel Gold',
+                      subtitle: 'Gold Level',
                       onTap: () {
-                        // TODO: Ver recompensas
+                        // TODO: View rewards
                       },
                     ),
                   ),
@@ -116,10 +116,10 @@ class DashboardScreen extends StatelessWidget {
                       Expanded(
                         child: _QuickStatCard(
                           icon: Icons.shopping_bag,
-                          title: 'Pedidos',
+                          title: 'Orders',
                           value: '3',
                           color: Colors.blue,
-                          subtitle: 'Activos',
+                          subtitle: 'Active',
                           onTap: () => context.push('/orders'),
                         ),
                       ),
@@ -127,7 +127,7 @@ class DashboardScreen extends StatelessWidget {
                       Expanded(
                         child: _QuickStatCard(
                           icon: Icons.shopping_cart,
-                          title: 'Carrito',
+                          title: 'Cart',
                           value: '${cartProvider.itemCount}',
                           color: Colors.orange,
                           subtitle: 'items',
@@ -142,10 +142,10 @@ class DashboardScreen extends StatelessWidget {
                       Expanded(
                         child: _QuickStatCard(
                           icon: Icons.favorite,
-                          title: 'Favoritos',
+                          title: 'Wishlist',
                           value: '12',
                           color: Colors.red,
-                          subtitle: 'productos',
+                          subtitle: 'products',
                           onTap: () {},
                         ),
                       ),
@@ -153,7 +153,7 @@ class DashboardScreen extends StatelessWidget {
                       Expanded(
                         child: _QuickStatCard(
                           icon: Icons.star,
-                          title: 'Puntos',
+                          title: 'Points',
                           value: '850',
                           color: Colors.amber,
                           subtitle: 'Gold',
@@ -167,9 +167,9 @@ class DashboardScreen extends StatelessWidget {
 
             const SizedBox(height: 32),
 
-            // Accesos rápidos
+            // Quick Access
             Text(
-              'Accesos Rápidos',
+              'Quick Access',
               style: TextStyle(
                 fontSize: isDesktop ? 24 : 20,
                 fontWeight: FontWeight.bold,
@@ -186,49 +186,49 @@ class DashboardScreen extends StatelessWidget {
               children: [
                 _QuickAccessCard(
                   icon: Icons.store,
-                  title: 'Tienda',
+                  title: 'Store',
                   color: Colors.purple,
                   onTap: () => context.go('/'),
                 ),
                 _QuickAccessCard(
                   icon: Icons.local_shipping,
-                  title: 'Seguimiento',
+                  title: 'Tracking',
                   color: Colors.green,
                   onTap: () {},
                 ),
                 _QuickAccessCard(
                   icon: Icons.receipt_long,
-                  title: 'Facturas',
+                  title: 'Invoices',
                   color: Colors.indigo,
                   onTap: () {},
                 ),
                 _QuickAccessCard(
                   icon: Icons.support_agent,
-                  title: 'Soporte',
+                  title: 'Support',
                   color: Colors.teal,
                   onTap: () {},
                 ),
                 _QuickAccessCard(
                   icon: Icons.location_on,
-                  title: 'Direcciones',
+                  title: 'Addresses',
                   color: Colors.red.shade400,
                   onTap: () {},
                 ),
                 _QuickAccessCard(
                   icon: Icons.payment,
-                  title: 'Pagos',
+                  title: 'Payments',
                   color: Colors.blue.shade400,
                   onTap: () {},
                 ),
                 _QuickAccessCard(
                   icon: Icons.settings,
-                  title: 'Configuración',
+                  title: 'Settings',
                   color: Colors.grey,
                   onTap: () {},
                 ),
                 _QuickAccessCard(
                   icon: Icons.person,
-                  title: 'Mi Perfil',
+                  title: 'My Profile',
                   color: Colors.orange,
                   onTap: () => context.push('/profile'),
                 ),
@@ -237,9 +237,9 @@ class DashboardScreen extends StatelessWidget {
 
             const SizedBox(height: 32),
 
-            // Actividad reciente
+            // Recent Activity
             Text(
-              'Actividad Reciente',
+              'Recent Activity',
               style: TextStyle(
                 fontSize: isDesktop ? 24 : 20,
                 fontWeight: FontWeight.bold,
@@ -248,36 +248,36 @@ class DashboardScreen extends StatelessWidget {
             const SizedBox(height: 16),
             _ActivityCard(
               icon: Icons.shopping_bag,
-              title: 'Pedido #1234 enviado',
-              subtitle: 'Tu pedido está en camino',
-              time: 'Hace 2 horas',
+              title: 'Order #1234 shipped',
+              subtitle: 'Your order is on the way',
+              time: '2 hours ago',
               color: Colors.blue,
             ),
             _ActivityCard(
               icon: Icons.local_offer,
-              title: 'Nueva oferta disponible',
-              subtitle: '30% de descuento en electrónica',
-              time: 'Hace 5 horas',
+              title: 'New deal available',
+              subtitle: '30% off electronics',
+              time: '5 hours ago',
               color: Colors.green,
             ),
             _ActivityCard(
               icon: Icons.star,
-              title: 'Has ganado 50 puntos',
-              subtitle: 'Por tu última compra',
-              time: 'Ayer',
+              title: 'You earned 50 points',
+              subtitle: 'From your last purchase',
+              time: 'Yesterday',
               color: Colors.amber,
             ),
             _ActivityCard(
               icon: Icons.receipt_long,
-              title: 'Pedido #1233 entregado',
-              subtitle: 'Califica tu experiencia',
-              time: 'Hace 2 días',
+              title: 'Order #1233 delivered',
+              subtitle: 'Rate your experience',
+              time: '2 days ago',
               color: Colors.purple,
             ),
 
             const SizedBox(height: 32),
 
-            // Banner promocional
+            // Promotional banner
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(24),
@@ -300,7 +300,7 @@ class DashboardScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    '¡Envíos GRATIS!',
+                    'FREE Shipping!',
                     style: TextStyle(
                       fontSize: isDesktop ? 28 : 24,
                       fontWeight: FontWeight.bold,
@@ -309,7 +309,7 @@ class DashboardScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'En compras mayores a \$500',
+                    'On purchases over \$500',
                     style: TextStyle(
                       fontSize: isDesktop ? 18 : 16,
                       color: Colors.white.withOpacity(0.9),
@@ -327,7 +327,7 @@ class DashboardScreen extends StatelessWidget {
                       ),
                     ),
                     child: const Text(
-                      'Comprar Ahora',
+                      'Shop Now',
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ),
