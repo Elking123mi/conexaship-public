@@ -59,7 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 : productsProvider.products.isEmpty
                     ? const Center(child: Text('No products available'))
                     : RefreshIndicator(
-                        onRefresh: () => productsProvider.fetchProducts(),
+                        onRefresh: () => productsProvider.loadProducts(),
                         child: GridView.builder(
                           padding: const EdgeInsets.all(16),
                           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

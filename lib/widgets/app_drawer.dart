@@ -40,21 +40,21 @@ class AppDrawer extends StatelessWidget {
                   : const Icon(Icons.person, size: 48),
             ),
             accountName: Text(
-              customer?.fullName ?? 'Invitado',
+              customer?.fullName ?? 'Guest',
               style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            accountEmail: Text(customer?.email ?? 'No autenticado'),
+            accountEmail: Text(customer?.email ?? 'Not authenticated'),
           ),
 
           Expanded(
             child: ListView(
               padding: EdgeInsets.zero,
               children: [
-                // Sección Principal
-                _DrawerSection(title: 'Principal'),
+                // Main Section
+                _DrawerSection(title: 'MAIN'),
                 _DrawerItem(
                   icon: Icons.dashboard,
                   title: 'Dashboard',
@@ -65,7 +65,7 @@ class AppDrawer extends StatelessWidget {
                 ),
                 _DrawerItem(
                   icon: Icons.home,
-                  title: 'Inicio',
+                  title: 'Home',
                   onTap: () {
                     context.pop();
                     context.go('/');
@@ -73,7 +73,7 @@ class AppDrawer extends StatelessWidget {
                 ),
                 _DrawerItem(
                   icon: Icons.shopping_bag,
-                  title: 'Productos',
+                  title: 'Products',
                   onTap: () {
                     context.pop();
                     context.go('/');
@@ -82,11 +82,11 @@ class AppDrawer extends StatelessWidget {
 
                 const Divider(),
 
-                // Sección de Compras
-                _DrawerSection(title: 'Compras'),
+                // Shopping Section
+                _DrawerSection(title: 'SHOPPING'),
                 _DrawerItem(
                   icon: Icons.shopping_cart,
-                  title: 'Mi Carrito',
+                  title: 'My Cart',
                   badge: '3',
                   onTap: () {
                     context.pop();
@@ -95,7 +95,7 @@ class AppDrawer extends StatelessWidget {
                 ),
                 _DrawerItem(
                   icon: Icons.receipt_long,
-                  title: 'Mis Pedidos',
+                  title: 'My Orders',
                   onTap: () {
                     context.pop();
                     context.push('/orders');
@@ -103,28 +103,28 @@ class AppDrawer extends StatelessWidget {
                 ),
                 _DrawerItem(
                   icon: Icons.favorite,
-                  title: 'Favoritos',
+                  title: 'Wishlist',
                   onTap: () {
                     context.pop();
-                    // TODO: Implementar favoritos
+                    // TODO: Implement wishlist
                   },
                 ),
                 _DrawerItem(
                   icon: Icons.local_offer,
-                  title: 'Ofertas',
+                  title: 'Deals',
                   onTap: () {
                     context.pop();
-                    // TODO: Implementar ofertas
+                    // TODO: Implement deals
                   },
                 ),
 
                 const Divider(),
 
-                // Sección de Cuenta
-                _DrawerSection(title: 'Mi Cuenta'),
+                // Account Section
+                _DrawerSection(title: 'MY ACCOUNT'),
                 _DrawerItem(
                   icon: Icons.person,
-                  title: 'Perfil',
+                  title: 'Profile',
                   onTap: () {
                     context.pop();
                     context.push('/profile');
@@ -132,74 +132,74 @@ class AppDrawer extends StatelessWidget {
                 ),
                 _DrawerItem(
                   icon: Icons.location_on,
-                  title: 'Direcciones',
+                  title: 'Addresses',
                   onTap: () {
                     context.pop();
-                    // TODO: Implementar direcciones
+                    // TODO: Implement addresses
                   },
                 ),
                 _DrawerItem(
                   icon: Icons.payment,
-                  title: 'Métodos de Pago',
+                  title: 'Payment Methods',
                   onTap: () {
                     context.pop();
-                    // TODO: Implementar métodos de pago
+                    // TODO: Implement payment methods
                   },
                 ),
                 _DrawerItem(
                   icon: Icons.notifications,
-                  title: 'Notificaciones',
+                  title: 'Notifications',
                   badge: '5',
                   onTap: () {
                     context.pop();
-                    // TODO: Implementar notificaciones
+                    // TODO: Implement notifications
                   },
                 ),
 
                 const Divider(),
 
-                // Sección de Servicios
-                _DrawerSection(title: 'Servicios'),
+                // Services Section
+                _DrawerSection(title: 'SERVICES'),
                 _DrawerItem(
                   icon: Icons.local_shipping,
-                  title: 'Seguimiento de Envíos',
+                  title: 'Track Shipments',
                   onTap: () {
                     context.pop();
-                    // TODO: Implementar seguimiento
+                    // TODO: Implement tracking
                   },
                 ),
                 _DrawerItem(
                   icon: Icons.help,
-                  title: 'Ayuda y Soporte',
+                  title: 'Help & Support',
                   onTap: () {
                     context.pop();
-                    // TODO: Implementar ayuda
+                    // TODO: Implement help
                   },
                 ),
                 _DrawerItem(
                   icon: Icons.star,
-                  title: 'Recompensas',
+                  title: 'Rewards',
                   onTap: () {
                     context.pop();
-                    // TODO: Implementar recompensas
+                    // TODO: Implement rewards
                   },
                 ),
 
                 const Divider(),
 
-                // Sección de Configuración
-                _DrawerSection(title: 'Configuración'),
+                // Settings Section
+                _DrawerSection(title: 'SETTINGS'),
                 _DrawerItem(
                   icon: Icons.settings,
-                  title: 'Ajustes',
+                  title: 'Settings',
                   onTap: () {
                     context.pop();
-                    // TODO: Implementar ajustes
+                    // TODO: Implement settings
                   },
                 ),
                 _DrawerItem(
                   icon: Icons.info,
-                  title: 'Acerca de',
+                  title: 'About',
                   onTap: () {
                     context.pop();
                     showAboutDialog(
@@ -227,7 +227,7 @@ class AppDrawer extends StatelessWidget {
               child: ListTile(
                 leading: const Icon(Icons.logout, color: Colors.red),
                 title: const Text(
-                  'Cerrar Sesión',
+                  'Sign Out',
                   style: TextStyle(
                     color: Colors.red,
                     fontWeight: FontWeight.w600,
@@ -252,7 +252,7 @@ class AppDrawer extends StatelessWidget {
               child: ListTile(
                 leading: Icon(Icons.login, color: Colors.orange.shade700),
                 title: Text(
-                  'Iniciar Sesión',
+                  'Sign In',
                   style: TextStyle(
                     color: Colors.orange.shade700,
                     fontWeight: FontWeight.w600,
