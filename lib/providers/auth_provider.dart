@@ -37,11 +37,11 @@ class AuthProvider with ChangeNotifier {
       final data = await _authService.login(email, password);
       final user = data['user'] as Map<String, dynamic>;
       
-      // Validar que tenga acceso a conexaship
+      // ✅ Validar que tenga acceso a conexaship O vanelux (usuarios pueden estar en cualquiera)
       final allowedApps = List<String>.from(user['allowed_apps'] ?? []);
-      if (!allowedApps.contains('conexaship')) {
+      if (!allowedApps.contains('conexaship') && !allowedApps.contains('vanelux')) {
         await _authService.logout();
-        _error = 'No tienes acceso a Conexaship. Apps permitidas: ${allowedApps.join(", ")}';
+        _error = 'No tienes acceso a esta plataforma. Apps permitidas: ${allowedApps.join(", ")}';
         _isLoading = false;
         notifyListeners();
         return false;
@@ -90,7 +90,7 @@ class AuthProvider with ChangeNotifier {
         password: password,
         name: '$firstName $lastName',
         roles: ['client'],
-        allowedApps: ['conexaship'],
+        allowedApps: ['conexaship', 'vanelux'],  // ✅ Acceso a AMBAS plataformas
       );
       
       // Hacer login automáticamente después del registro
