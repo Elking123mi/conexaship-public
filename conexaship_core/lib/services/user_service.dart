@@ -22,7 +22,7 @@ class UserService {
         'username': username,
         'email': email,
         'password': password,
-        'name': name,
+        'full_name': name,  // ✅ CORREGIDO: backend espera 'full_name', no 'name'
         'roles': roles,
         'allowed_apps': allowedApps,
       }),
@@ -59,7 +59,7 @@ class UserService {
         'username': username,
         'email': email,
         'password': password,
-        'name': name,
+        'full_name': name,  // ✅ CORREGIDO: consistente con registerUser
         'roles': roles,
         'allowed_apps': allowedApps,
       }),
