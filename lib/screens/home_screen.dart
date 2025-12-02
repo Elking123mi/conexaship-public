@@ -36,17 +36,33 @@ class _HomeScreenState extends State<HomeScreen> {
     final productsProvider = Provider.of<ProductsProvider>(context);
     final cartProvider = Provider.of<CartProvider>(context);
     final authProvider = Provider.of<AuthProvider>(context);
+    final isMobile = MediaQuery.of(context).size.width < 600;
+    final isTablet = MediaQuery.of(context).size.width >= 600 && MediaQuery.of(context).size.width < 1024;
+
+    // Responsive grid configuration
+    int crossAxisCount = 4; // Desktop
+    double childAspectRatio = 0.75;
+    
+    if (isMobile) {
+      crossAxisCount = 2;
+      childAspectRatio = 0.7;
+    } else if (isTablet) {
+      crossAxisCount = 3;
+      childAspectRatio = 0.72;
+    }
 
     return Scaffold(
       backgroundColor: const Color(0xFFF3F4F6),
       drawer: const AppDrawer(),
       body: Column(
         children: [
-          // Top Navigation Bar - Amazon Style
-          _buildTopNavBar(context, authProvider, cartProvider),
+          // Top Navigation Bar - Responsive
+          isMobile 
+              ? _buildMobileTopBar(context, authProvider, cartProvider)
+              : _buildTopNavBar(context, authProvider, cartProvider),
           
-          // User Dashboard Section (only when logged in)
-          if (authProvider.isLoggedIn)
+          // User Dashboard Section (only when logged in and not mobile)
+          if (authProvider.isLoggedIn && !isMobile)
             _buildUserDashboard(context, authProvider),
           
           // Categories Bar
@@ -61,12 +77,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     : RefreshIndicator(
                         onRefresh: () => productsProvider.loadProducts(),
                         child: GridView.builder(
-                          padding: const EdgeInsets.all(16),
-                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 4,
-                            crossAxisSpacing: 16,
-                            mainAxisSpacing: 16,
-                            childAspectRatio: 0.75,
+                          padding: EdgeInsets.all(isMobile ? 8 : 16),
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: crossAxisCount,
+                            crossAxisSpacing: isMobile ? 8 : 16,
+                            mainAxisSpacing: isMobile ? 8 : 16,
+                            childAspectRatio: childAspectRatio,
                           ),
                           itemCount: productsProvider.products.length,
                           itemBuilder: (context, index) {
@@ -77,6 +93,86 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
           ),
         ],
+      ),
+    );
+  }
+
+  // Mobile Top Bar - Simplified
+  Widget _buildMobileTopBar(BuildContext context, AuthProvider authProvider, CartProvider cartProvider) {
+    return Material(
+      elevation: 4,
+      color: const Color(0xFF232F3E),
+      child: SafeArea(
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          child: Row(
+            children: [
+              // Menu Button
+              IconButton(
+                icon: const Icon(Icons.menu, color: Colors.white, size: 24),
+                onPressed: () {
+                  Scaffold.of(context).openDrawer();
+                },
+              ),
+              
+              // Logo
+              Icon(Icons.shopping_bag, color: Colors.orange.shade700, size: 24),
+              const SizedBox(width: 6),
+              const Text(
+                'ConexaShip',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const Spacer(),
+              
+              // Search Icon
+              IconButton(
+                icon: const Icon(Icons.search, color: Colors.white, size: 24),
+                onPressed: () {
+                  // TODO: Show search dialog
+                },
+              ),
+              
+              // Cart
+              _buildMobileCartButton(context, cartProvider),
+              
+              // User Account
+              if (authProvider.isLoggedIn)
+                IconButton(
+                  icon: const Icon(Icons.person, color: Colors.white, size: 24),
+                  onPressed: () => context.push('/profile'),
+                )
+              else
+                IconButton(
+                  icon: const Icon(Icons.login, color: Colors.white, size: 24),
+                  onPressed: () => context.push('/login'),
+                ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildMobileCartButton(BuildContext context, CartProvider cartProvider) {
+    return InkWell(
+      onTap: () => context.push('/cart'),
+      child: badges.Badge(
+        badgeContent: Text(
+          '${cartProvider.itemCount}',
+          style: const TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold),
+        ),
+        showBadge: cartProvider.isNotEmpty,
+        badgeStyle: badges.BadgeStyle(
+          badgeColor: Colors.orange.shade700,
+        ),
+        child: const Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Icon(Icons.shopping_cart, color: Colors.white, size: 24),
+        ),
       ),
     );
   }
@@ -582,12 +678,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
   // Categories Bar
   Widget _buildCategoriesBar() {
+    final isMobile = MediaQuery.of(context).size.width < 600;
+    
     return Container(
       color: const Color(0xFF37475A),
-      height: 48,
+      height: isMobile ? 40 : 48,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        padding: const EdgeInsets.symmetric(horizontal: 24),
+        padding: EdgeInsets.symmetric(horizontal: isMobile ? 8 : 24),
         itemCount: _categories.length,
         itemBuilder: (context, index) {
           final isSelected = _selectedCategoryIndex == index;
@@ -598,13 +696,13 @@ class _HomeScreenState extends State<HomeScreen> {
               });
             },
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: EdgeInsets.symmetric(horizontal: isMobile ? 12 : 20),
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 border: Border(
                   bottom: BorderSide(
                     color: isSelected ? Colors.orange.shade700 : Colors.transparent,
-                    width: 3,
+                    width: isMobile ? 2 : 3,
                   ),
                 ),
               ),
@@ -612,7 +710,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 _categories[index],
                 style: TextStyle(
                   color: isSelected ? Colors.white : Colors.white70,
-                  fontSize: 14,
+                  fontSize: isMobile ? 12 : 14,
                   fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                 ),
               ),

@@ -14,6 +14,7 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final currencyFormatter = NumberFormat.currency(locale: 'es_MX', symbol: '\$');
+    final isMobile = MediaQuery.of(context).size.width < 600;
 
     return Card(
       elevation: 2,
@@ -32,38 +33,40 @@ class ProductCard extends StatelessWidget {
               child: Stack(
                 children: [
                   Container(
+                    width: double.infinity,
                     decoration: BoxDecoration(
                       color: Colors.grey[200],
                       borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
                     ),
-                    child: Center(
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
                       child: product.images != null && product.images!.isNotEmpty
                           ? Image.network(
                               product.images!.first,
-                              fit: BoxFit.cover,
+                              fit: BoxFit.contain,
                               errorBuilder: (context, error, stackTrace) {
-                                return const Icon(Icons.image, size: 48, color: Colors.grey);
+                                return Icon(Icons.image, size: isMobile ? 32 : 48, color: Colors.grey);
                               },
                             )
-                          : const Icon(Icons.image, size: 48, color: Colors.grey),
+                          : Icon(Icons.image, size: isMobile ? 32 : 48, color: Colors.grey),
                     ),
                   ),
                   if (product.isOnSale)
                     Positioned(
-                      top: 8,
-                      right: 8,
+                      top: 4,
+                      right: 4,
                       child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                        padding: EdgeInsets.symmetric(horizontal: isMobile ? 4 : 8, vertical: isMobile ? 2 : 4),
                         decoration: BoxDecoration(
                           color: Colors.red,
                           borderRadius: BorderRadius.circular(4),
                         ),
                         child: Text(
                           '-${product.discountPercentage.toStringAsFixed(0)}%',
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
-                            fontSize: 12,
+                            fontSize: isMobile ? 10 : 12,
                           ),
                         ),
                       ),
@@ -75,13 +78,13 @@ class ProductCard extends StatelessWidget {
                           color: Colors.black54,
                           borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
                         ),
-                        child: const Center(
+                        child: Center(
                           child: Text(
                             'AGOTADO',
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
-                              fontSize: 16,
+                              fontSize: isMobile ? 12 : 16,
                             ),
                           ),
                         ),
@@ -95,7 +98,7 @@ class ProductCard extends StatelessWidget {
             Expanded(
               flex: 2,
               child: Padding(
-                padding: const EdgeInsets.all(12),
+                padding: EdgeInsets.all(isMobile ? 6 : 12),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
@@ -104,24 +107,24 @@ class ProductCard extends StatelessWidget {
                       product.name,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontWeight: FontWeight.w600,
-                        fontSize: 14,
+                        fontSize: isMobile ? 12 : 14,
                       ),
                     ),
-                    const SizedBox(height: 4),
+                    SizedBox(height: isMobile ? 2 : 4),
                     if (product.rating != null)
                       Row(
                         children: [
-                          const Icon(Icons.star, size: 14, color: Colors.amber),
-                          const SizedBox(width: 4),
+                          Icon(Icons.star, size: isMobile ? 12 : 14, color: Colors.amber),
+                          SizedBox(width: isMobile ? 2 : 4),
                           Text(
                             product.rating!.toStringAsFixed(1),
-                            style: const TextStyle(fontSize: 12),
+                            style: TextStyle(fontSize: isMobile ? 10 : 12),
                           ),
                           Text(
                             ' (${product.reviewCount ?? 0})',
-                            style: TextStyle(fontSize: 12, color: Colors.grey[600]),
+                            style: TextStyle(fontSize: isMobile ? 10 : 12, color: Colors.grey[600]),
                           ),
                         ],
                       ),
@@ -130,7 +133,7 @@ class ProductCard extends StatelessWidget {
                       Text(
                         currencyFormatter.format(product.compareAtPrice),
                         style: TextStyle(
-                          fontSize: 11,
+                          fontSize: isMobile ? 9 : 11,
                           decoration: TextDecoration.lineThrough,
                           color: Colors.grey[600],
                         ),
@@ -139,7 +142,7 @@ class ProductCard extends StatelessWidget {
                     Text(
                       currencyFormatter.format(product.price),
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: isMobile ? 14 : 18,
                         fontWeight: FontWeight.bold,
                         color: Theme.of(context).colorScheme.secondary,
                       ),
