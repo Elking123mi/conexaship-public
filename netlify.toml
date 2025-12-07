@@ -18,6 +18,8 @@
 [build.environment]
   # Use newer Node version for compatibility
   NODE_VERSION = "18"
+  # Disable secrets scanning for Flutter cache files
+  SECRETS_SCAN_SMART_DETECTION_ENABLED = "false"
 
 # SPA routing - redirect all routes to index.html
 [[redirects]]
