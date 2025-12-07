@@ -60,18 +60,9 @@ class ConexaShipApp extends StatelessWidget {
 final _router = GoRouter(
   initialLocation: '/',
   routes: [
-    GoRoute(
-      path: '/',
-      builder: (context, state) => const HomeScreen(),
-    ),
-    GoRoute(
-      path: '/dashboard',
-      builder: (context, state) => const DashboardScreen(),
-    ),
-    GoRoute(
-      path: '/profile',
-      builder: (context, state) => const ProfileScreen(),
-    ),
+    GoRoute(path: '/', builder: (context, state) => const HomeScreen()),
+    GoRoute(path: '/dashboard', builder: (context, state) => const DashboardScreen()),
+    GoRoute(path: '/profile', builder: (context, state) => const ProfileScreen()),
     GoRoute(
       path: '/product/:id',
       builder: (context, state) {
@@ -79,25 +70,10 @@ final _router = GoRouter(
         return ProductDetailScreen(productId: id);
       },
     ),
-    GoRoute(
-      path: '/cart',
-      builder: (context, state) => const CartScreen(),
-    ),
-    GoRoute(
-      path: '/login',
-      builder: (context, state) => const LoginScreen(),
-    ),
-    GoRoute(
-      path: '/register',
-      builder: (context, state) => const RegisterScreen(),
-    ),
-    GoRoute(
-      path: '/checkout',
-      builder: (context, state) => const CheckoutScreen(),
-    ),
-    GoRoute(
-      path: '/orders',
-      builder: (context, state) => const OrdersScreen(),
-    ),
+    GoRoute(path: '/cart', builder: (context, state) => const CartScreen()),
+    GoRoute(path: '/login', builder: (context, state) => const LoginScreen()),
+    GoRoute(path: '/register', builder: (context, state) => const RegisterScreen()),
+    GoRoute(path: '/checkout', builder: (context, state) => const CheckoutScreen()),
+    GoRoute(path: '/orders', builder: (context, state) => const OrdersScreen()),
   ],
 );

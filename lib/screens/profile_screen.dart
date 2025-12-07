@@ -89,18 +89,20 @@ class ProfileScreen extends StatelessWidget {
                           Wrap(
                             spacing: 8,
                             children: customer.roles!
-                                .map((role) => Chip(
-                                      label: Text(
-                                        role.toUpperCase(),
-                                        style: const TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white,
-                                        ),
+                                .map(
+                                  (role) => Chip(
+                                    label: Text(
+                                      role.toUpperCase(),
+                                      style: const TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
                                       ),
-                                      backgroundColor: Colors.orange.shade900,
-                                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                                    ))
+                                    ),
+                                    backgroundColor: Colors.orange.shade900,
+                                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                                  ),
+                                )
                                 .toList(),
                           ),
                         const SizedBox(height: 30),
@@ -224,15 +226,13 @@ class ProfileScreen extends StatelessWidget {
                                     ),
                                     ElevatedButton(
                                       onPressed: () => Navigator.pop(context, true),
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: Colors.red,
-                                      ),
+                                      style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
                                       child: const Text('Cerrar Sesión'),
                                     ),
                                   ],
                                 ),
                               );
-                              
+
                               if (confirm == true && context.mounted) {
                                 await authProvider.logout();
                                 if (context.mounted) {
@@ -283,7 +283,7 @@ class _StatCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDesktop = MediaQuery.of(context).size.width > 800;
-    
+
     return Expanded(
       child: Card(
         elevation: 4,
@@ -305,10 +305,7 @@ class _StatCard extends StatelessWidget {
               const SizedBox(height: 4),
               Text(
                 title,
-                style: TextStyle(
-                  fontSize: isDesktop ? 16 : 14,
-                  color: Colors.grey[600],
-                ),
+                style: TextStyle(fontSize: isDesktop ? 16 : 14, color: Colors.grey[600]),
                 textAlign: TextAlign.center,
               ),
             ],
@@ -341,13 +338,7 @@ class _ProfileOption extends StatelessWidget {
           backgroundColor: Colors.orange.shade50,
           child: Icon(icon, color: Colors.orange.shade700),
         ),
-        title: Text(
-          title,
-          style: const TextStyle(
-            fontWeight: FontWeight.w600,
-            fontSize: 16,
-          ),
-        ),
+        title: Text(title, style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16)),
         subtitle: Text(subtitle),
         trailing: const Icon(Icons.arrow_forward_ios, size: 16),
         onTap: onTap,

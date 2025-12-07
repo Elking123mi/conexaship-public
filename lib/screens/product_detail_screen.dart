@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
@@ -21,10 +20,7 @@ class ProductDetailScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.grey[100],
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(60),
-        child: _AmazonStyleHeader(),
-      ),
+      appBar: PreferredSize(preferredSize: const Size.fromHeight(60), child: _AmazonStyleHeader()),
       body: FutureBuilder<Product?>(
         future: productsProvider.getProduct(productId),
         builder: (context, snapshot) {
@@ -54,7 +50,14 @@ class ProductDetailScreen extends StatelessWidget {
                             children: [
                               _ProductImage(product: product, isDesktop: true),
                               const SizedBox(width: 40),
-                              Expanded(child: _ProductInfo(product: product, currencyFormatter: currencyFormatter, cartProvider: cartProvider, isDesktop: true)),
+                              Expanded(
+                                child: _ProductInfo(
+                                  product: product,
+                                  currencyFormatter: currencyFormatter,
+                                  cartProvider: cartProvider,
+                                  isDesktop: true,
+                                ),
+                              ),
                             ],
                           )
                         : Column(
@@ -62,7 +65,12 @@ class ProductDetailScreen extends StatelessWidget {
                             children: [
                               _ProductImage(product: product, isDesktop: false),
                               const SizedBox(height: 24),
-                              _ProductInfo(product: product, currencyFormatter: currencyFormatter, cartProvider: cartProvider, isDesktop: false),
+                              _ProductInfo(
+                                product: product,
+                                currencyFormatter: currencyFormatter,
+                                cartProvider: cartProvider,
+                                isDesktop: false,
+                              ),
                             ],
                           ),
                   ),
@@ -82,12 +90,7 @@ class ProductDetailScreen extends StatelessWidget {
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
               color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.08),
-                  blurRadius: 10,
-                ),
-              ],
+              boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.08), blurRadius: 10)],
             ),
             child: SafeArea(
               child: Row(
@@ -192,12 +195,7 @@ class _ProductImage extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.04),
-            blurRadius: 8,
-          ),
-        ],
+        boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.04), blurRadius: 8)],
       ),
       child: product.images != null && product.images!.isNotEmpty
           ? ClipRRect(
@@ -214,7 +212,12 @@ class _ProductInfo extends StatelessWidget {
   final NumberFormat currencyFormatter;
   final CartProvider cartProvider;
   final bool isDesktop;
-  const _ProductInfo({required this.product, required this.currencyFormatter, required this.cartProvider, required this.isDesktop});
+  const _ProductInfo({
+    required this.product,
+    required this.currencyFormatter,
+    required this.cartProvider,
+    required this.isDesktop,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -235,9 +238,7 @@ class _ProductInfo extends StatelessWidget {
             children: [
               ...List.generate(5, (index) {
                 return Icon(
-                  index < product.rating!.floor()
-                      ? Icons.star
-                      : Icons.star_border,
+                  index < product.rating!.floor() ? Icons.star : Icons.star_border,
                   color: Colors.amber,
                   size: isDesktop ? 28 : 20,
                 );
@@ -269,9 +270,7 @@ class _ProductInfo extends StatelessWidget {
         ),
         const SizedBox(height: 16),
         Text(
-          product.inStock
-              ? 'In stock (${product.stock} available)'
-              : 'Out of stock',
+          product.inStock ? 'In stock (${product.stock} available)' : 'Out of stock',
           style: TextStyle(
             color: product.inStock ? Colors.green : Colors.red,
             fontWeight: FontWeight.w600,

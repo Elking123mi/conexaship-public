@@ -18,7 +18,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final TextEditingController _searchController = TextEditingController();
   int _selectedCategoryIndex = 0;
-  
+
   final List<String> _categories = [
     'All',
     'Electronics',
@@ -37,12 +37,13 @@ class _HomeScreenState extends State<HomeScreen> {
     final cartProvider = Provider.of<CartProvider>(context);
     final authProvider = Provider.of<AuthProvider>(context);
     final isMobile = MediaQuery.of(context).size.width < 600;
-    final isTablet = MediaQuery.of(context).size.width >= 600 && MediaQuery.of(context).size.width < 1024;
+    final isTablet =
+        MediaQuery.of(context).size.width >= 600 && MediaQuery.of(context).size.width < 1024;
 
     // Responsive grid configuration
     int crossAxisCount = 4; // Desktop
     double childAspectRatio = 0.75;
-    
+
     if (isMobile) {
       crossAxisCount = 2;
       childAspectRatio = 0.7;
@@ -57,40 +58,39 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Column(
         children: [
           // Top Navigation Bar - Responsive
-          isMobile 
+          isMobile
               ? _buildMobileTopBar(context, authProvider, cartProvider)
               : _buildTopNavBar(context, authProvider, cartProvider),
-          
+
           // User Dashboard Section (only when logged in and not mobile)
-          if (authProvider.isLoggedIn && !isMobile)
-            _buildUserDashboard(context, authProvider),
-          
+          if (authProvider.isLoggedIn && !isMobile) _buildUserDashboard(context, authProvider),
+
           // Categories Bar
           _buildCategoriesBar(),
-          
+
           // Main Content
           Expanded(
             child: productsProvider.isLoading
                 ? const Center(child: CircularProgressIndicator())
                 : productsProvider.products.isEmpty
-                    ? const Center(child: Text('No products available'))
-                    : RefreshIndicator(
-                        onRefresh: () => productsProvider.loadProducts(),
-                        child: GridView.builder(
-                          padding: EdgeInsets.all(isMobile ? 8 : 16),
-                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: crossAxisCount,
-                            crossAxisSpacing: isMobile ? 8 : 16,
-                            mainAxisSpacing: isMobile ? 8 : 16,
-                            childAspectRatio: childAspectRatio,
-                          ),
-                          itemCount: productsProvider.products.length,
-                          itemBuilder: (context, index) {
-                            final product = productsProvider.products[index];
-                            return ProductCard(product: product);
-                          },
-                        ),
+                ? const Center(child: Text('No products available'))
+                : RefreshIndicator(
+                    onRefresh: () => productsProvider.loadProducts(),
+                    child: GridView.builder(
+                      padding: EdgeInsets.all(isMobile ? 8 : 16),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: crossAxisCount,
+                        crossAxisSpacing: isMobile ? 8 : 16,
+                        mainAxisSpacing: isMobile ? 8 : 16,
+                        childAspectRatio: childAspectRatio,
                       ),
+                      itemCount: productsProvider.products.length,
+                      itemBuilder: (context, index) {
+                        final product = productsProvider.products[index];
+                        return ProductCard(product: product);
+                      },
+                    ),
+                  ),
           ),
         ],
       ),
@@ -98,7 +98,11 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   // Mobile Top Bar - Simplified
-  Widget _buildMobileTopBar(BuildContext context, AuthProvider authProvider, CartProvider cartProvider) {
+  Widget _buildMobileTopBar(
+    BuildContext context,
+    AuthProvider authProvider,
+    CartProvider cartProvider,
+  ) {
     return Material(
       elevation: 4,
       color: const Color(0xFF232F3E),
@@ -114,20 +118,16 @@ class _HomeScreenState extends State<HomeScreen> {
                   Scaffold.of(context).openDrawer();
                 },
               ),
-              
+
               // Logo
               Icon(Icons.shopping_bag, color: Colors.orange.shade700, size: 24),
               const SizedBox(width: 6),
               const Text(
                 'ConexaShip',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
               ),
               const Spacer(),
-              
+
               // Search Icon
               IconButton(
                 icon: const Icon(Icons.search, color: Colors.white, size: 24),
@@ -135,10 +135,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   // TODO: Show search dialog
                 },
               ),
-              
+
               // Cart
               _buildMobileCartButton(context, cartProvider),
-              
+
               // User Account
               if (authProvider.isLoggedIn)
                 IconButton(
@@ -166,9 +166,7 @@ class _HomeScreenState extends State<HomeScreen> {
           style: const TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold),
         ),
         showBadge: cartProvider.isNotEmpty,
-        badgeStyle: badges.BadgeStyle(
-          badgeColor: Colors.orange.shade700,
-        ),
+        badgeStyle: badges.BadgeStyle(badgeColor: Colors.orange.shade700),
         child: const Padding(
           padding: EdgeInsets.all(8.0),
           child: Icon(Icons.shopping_cart, color: Colors.white, size: 24),
@@ -178,7 +176,11 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   // Top Navigation Bar with Account Menu
-  Widget _buildTopNavBar(BuildContext context, AuthProvider authProvider, CartProvider cartProvider) {
+  Widget _buildTopNavBar(
+    BuildContext context,
+    AuthProvider authProvider,
+    CartProvider cartProvider,
+  ) {
     return Material(
       elevation: 4,
       color: const Color(0xFF232F3E),
@@ -198,7 +200,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   tooltip: 'Menu',
                 ),
                 const SizedBox(width: 16),
-                
+
                 // Logo
                 Row(
                   children: [
@@ -216,7 +218,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
                 const SizedBox(width: 32),
-                
+
                 // Search Bar
                 Expanded(
                   child: Container(
@@ -259,7 +261,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 const SizedBox(width: 32),
-                
+
                 // User Account Menu
                 if (authProvider.isLoggedIn) ...[
                   _buildAccountMenu(context, authProvider),
@@ -277,35 +279,43 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   const SizedBox(width: 16),
                 ],
-                
+
                 // Cart
                 _buildCartButton(context, cartProvider),
               ],
             ),
           ),
-          
+
           // Secondary Navigation (if logged in)
           if (authProvider.isLoggedIn)
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
               decoration: BoxDecoration(
                 color: const Color(0xFF37475A),
-                border: Border(
-                  top: BorderSide(color: Colors.grey.shade800, width: 1),
-                ),
+                border: Border(top: BorderSide(color: Colors.grey.shade800, width: 1)),
               ),
               child: Row(
                 children: [
                   _buildNavButton(context, Icons.dashboard, 'Dashboard', () {
                     // Toggle dashboard view
                   }),
-                  _buildNavButton(context, Icons.receipt_long, 'Orders', () => context.push('/orders')),
+                  _buildNavButton(
+                    context,
+                    Icons.receipt_long,
+                    'Orders',
+                    () => context.push('/orders'),
+                  ),
                   _buildNavButton(context, Icons.favorite, 'Wishlist', () {}),
                   _buildNavButton(context, Icons.location_on, 'Addresses', () {}),
                   _buildNavButton(context, Icons.credit_card, 'Payment Methods', () {}),
                   _buildNavButton(context, Icons.notifications, 'Notifications', () {}),
                   const Spacer(),
-                  _buildNavButton(context, Icons.settings, 'Settings', () => context.push('/profile')),
+                  _buildNavButton(
+                    context,
+                    Icons.settings,
+                    'Settings',
+                    () => context.push('/profile'),
+                  ),
                 ],
               ),
             ),
@@ -336,10 +346,7 @@ class _HomeScreenState extends State<HomeScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Text(
-                'Hello,',
-                style: TextStyle(color: Colors.white70, fontSize: 12),
-              ),
+              const Text('Hello,', style: TextStyle(color: Colors.white70, fontSize: 12)),
               Text(
                 authProvider.currentCustomer?.fullName.split(' ').first ?? 'User',
                 style: const TextStyle(
@@ -357,11 +364,7 @@ class _HomeScreenState extends State<HomeScreen> {
         const PopupMenuItem(
           value: 'profile',
           child: Row(
-            children: [
-              Icon(Icons.person, size: 20),
-              SizedBox(width: 12),
-              Text('My Profile'),
-            ],
+            children: [Icon(Icons.person, size: 20), SizedBox(width: 12), Text('My Profile')],
           ),
         ),
         const PopupMenuItem(
@@ -377,11 +380,7 @@ class _HomeScreenState extends State<HomeScreen> {
         const PopupMenuItem(
           value: 'wishlist',
           child: Row(
-            children: [
-              Icon(Icons.favorite, size: 20),
-              SizedBox(width: 12),
-              Text('My Wishlist'),
-            ],
+            children: [Icon(Icons.favorite, size: 20), SizedBox(width: 12), Text('My Wishlist')],
           ),
         ),
         const PopupMenuItem(
@@ -440,17 +439,10 @@ class _HomeScreenState extends State<HomeScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
-              'Returns',
-              style: TextStyle(color: Colors.white70, fontSize: 12),
-            ),
+            Text('Returns', style: TextStyle(color: Colors.white70, fontSize: 12)),
             Text(
               '& Orders',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 14,
-              ),
+              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
             ),
           ],
         ),
@@ -467,9 +459,7 @@ class _HomeScreenState extends State<HomeScreen> {
           style: const TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold),
         ),
         showBadge: cartProvider.isNotEmpty,
-        badgeStyle: badges.BadgeStyle(
-          badgeColor: Colors.orange.shade700,
-        ),
+        badgeStyle: badges.BadgeStyle(badgeColor: Colors.orange.shade700),
         child: const Padding(
           padding: EdgeInsets.all(8.0),
           child: Row(
@@ -478,11 +468,7 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(width: 4),
               Text(
                 'Cart',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold),
               ),
             ],
           ),
@@ -544,17 +530,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     Text(
                       'Welcome back, ${authProvider.currentCustomer?.fullName.split(' ').first ?? 'User'}!',
-                      style: const TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                     ),
                     Text(
                       authProvider.currentCustomer?.email ?? '',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.grey.shade600,
-                      ),
+                      style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
                     ),
                   ],
                 ),
@@ -654,21 +634,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Icon(icon, color: color, size: 28),
               ),
               const SizedBox(height: 12),
-              Text(
-                title,
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              Text(title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
               const SizedBox(height: 4),
-              Text(
-                subtitle,
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Colors.grey.shade600,
-                ),
-              ),
+              Text(subtitle, style: TextStyle(fontSize: 12, color: Colors.grey.shade600)),
             ],
           ),
         ),
@@ -679,7 +647,7 @@ class _HomeScreenState extends State<HomeScreen> {
   // Categories Bar
   Widget _buildCategoriesBar() {
     final isMobile = MediaQuery.of(context).size.width < 600;
-    
+
     return Container(
       color: const Color(0xFF37475A),
       height: isMobile ? 40 : 48,

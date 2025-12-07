@@ -15,10 +15,7 @@ class CartScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.grey[100],
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(60),
-        child: _AmazonStyleHeader(),
-      ),
+      appBar: PreferredSize(preferredSize: const Size.fromHeight(60), child: _AmazonStyleHeader()),
       body: cartProvider.isEmpty
           ? Center(
               child: Column(
@@ -26,15 +23,9 @@ class CartScreen extends StatelessWidget {
                 children: [
                   Icon(Icons.shopping_cart_outlined, size: 100, color: Colors.grey[400]),
                   const SizedBox(height: 16),
-                  Text(
-                    'Your cart is empty',
-                    style: Theme.of(context).textTheme.headlineSmall,
-                  ),
+                  Text('Your cart is empty', style: Theme.of(context).textTheme.headlineSmall),
                   const SizedBox(height: 8),
-                  Text(
-                    'Add products to start shopping',
-                    style: TextStyle(color: Colors.grey[600]),
-                  ),
+                  Text('Add products to start shopping', style: TextStyle(color: Colors.grey[600])),
                   const SizedBox(height: 24),
                   ElevatedButton(
                     onPressed: () => context.go('/'),
@@ -49,7 +40,10 @@ class CartScreen extends StatelessWidget {
             )
           : Center(
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: isDesktop ? 64 : 0, vertical: isDesktop ? 32 : 0),
+                padding: EdgeInsets.symmetric(
+                  horizontal: isDesktop ? 64 : 0,
+                  vertical: isDesktop ? 32 : 0,
+                ),
                 child: Card(
                   elevation: 6,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
@@ -64,7 +58,9 @@ class CartScreen extends StatelessWidget {
                               final item = cartProvider.items[index];
                               return Card(
                                 margin: const EdgeInsets.symmetric(vertical: 8),
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(16),
+                                ),
                                 child: Padding(
                                   padding: const EdgeInsets.all(12),
                                   child: Row(
@@ -76,10 +72,15 @@ class CartScreen extends StatelessWidget {
                                           color: Colors.grey[200],
                                           borderRadius: BorderRadius.circular(12),
                                         ),
-                                        child: item.product.images != null && item.product.images!.isNotEmpty
+                                        child:
+                                            item.product.images != null &&
+                                                item.product.images!.isNotEmpty
                                             ? ClipRRect(
                                                 borderRadius: BorderRadius.circular(12),
-                                                child: Image.network(item.product.images!.first, fit: BoxFit.cover),
+                                                child: Image.network(
+                                                  item.product.images!.first,
+                                                  fit: BoxFit.cover,
+                                                ),
                                               )
                                             : const Icon(Icons.image, size: 40),
                                       ),
@@ -115,7 +116,9 @@ class CartScreen extends StatelessWidget {
                                             children: [
                                               IconButton(
                                                 icon: const Icon(Icons.remove_circle_outline),
-                                                onPressed: () => cartProvider.decrementQuantity(item.product.id!),
+                                                onPressed: () => cartProvider.decrementQuantity(
+                                                  item.product.id!,
+                                                ),
                                               ),
                                               Text(
                                                 '${item.quantity}',
@@ -126,12 +129,15 @@ class CartScreen extends StatelessWidget {
                                               ),
                                               IconButton(
                                                 icon: const Icon(Icons.add_circle_outline),
-                                                onPressed: () => cartProvider.incrementQuantity(item.product.id!),
+                                                onPressed: () => cartProvider.incrementQuantity(
+                                                  item.product.id!,
+                                                ),
                                               ),
                                             ],
                                           ),
                                           TextButton.icon(
-                                            onPressed: () => cartProvider.removeProduct(item.product.id!),
+                                            onPressed: () =>
+                                                cartProvider.removeProduct(item.product.id!),
                                             icon: const Icon(Icons.delete_outline, size: 18),
                                             label: const Text('Remove'),
                                             style: TextButton.styleFrom(
@@ -152,19 +158,22 @@ class CartScreen extends StatelessWidget {
                           decoration: BoxDecoration(
                             color: Colors.white,
                             boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.08),
-                                blurRadius: 10,
-                              ),
+                              BoxShadow(color: Colors.black.withOpacity(0.08), blurRadius: 10),
                             ],
                             borderRadius: BorderRadius.circular(16),
                           ),
                           child: SafeArea(
                             child: Column(
                               children: [
-                                _SummaryRow('Subtotal:', currencyFormatter.format(cartProvider.subtotal)),
+                                _SummaryRow(
+                                  'Subtotal:',
+                                  currencyFormatter.format(cartProvider.subtotal),
+                                ),
                                 _SummaryRow('Tax:', currencyFormatter.format(cartProvider.tax)),
-                                _SummaryRow('Shipping:', currencyFormatter.format(cartProvider.shipping)),
+                                _SummaryRow(
+                                  'Shipping:',
+                                  currencyFormatter.format(cartProvider.shipping),
+                                ),
                                 const Divider(),
                                 _SummaryRow(
                                   'Total:',

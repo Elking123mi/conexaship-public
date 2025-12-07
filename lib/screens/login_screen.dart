@@ -25,9 +25,10 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
       vsync: this,
       duration: const Duration(milliseconds: 800),
     );
-    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(parent: _animationController, curve: Curves.easeIn),
-    );
+    _fadeAnimation = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(CurvedAnimation(parent: _animationController, curve: Curves.easeIn));
     _animationController.forward();
   }
 
@@ -51,11 +52,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [
-              Colors.orange.shade700,
-              Colors.orange.shade400,
-              Colors.orange.shade200,
-            ],
+            colors: [Colors.orange.shade700, Colors.orange.shade400, Colors.orange.shade200],
           ),
         ),
         child: Center(
@@ -103,7 +100,12 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                     const SizedBox(height: 24),
                     const Text(
                       'CONEXASHIP',
-                      style: TextStyle(fontSize: 42, fontWeight: FontWeight.bold, color: Colors.white, letterSpacing: 2),
+                      style: TextStyle(
+                        fontSize: 42,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        letterSpacing: 2,
+                      ),
                     ),
                     const SizedBox(height: 12),
                     Text(
@@ -140,7 +142,12 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
             const SizedBox(height: 16),
             Text(
               'CONEXASHIP',
-              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.orange.shade700, letterSpacing: 1.5),
+              style: TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+                color: Colors.orange.shade700,
+                letterSpacing: 1.5,
+              ),
             ),
             const SizedBox(height: 8),
             Text(
@@ -165,10 +172,14 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
         children: [
           Text(
             'Sign In',
-            style: TextStyle(fontSize: _isDesktop ? 32 : 24, fontWeight: FontWeight.bold, color: Colors.grey.shade800),
+            style: TextStyle(
+              fontSize: _isDesktop ? 32 : 24,
+              fontWeight: FontWeight.bold,
+              color: Colors.grey.shade800,
+            ),
           ),
           SizedBox(height: _isDesktop ? 32 : 24),
-          
+
           TextFormField(
             controller: _emailController,
             keyboardType: TextInputType.emailAddress,
@@ -188,7 +199,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
             },
           ),
           SizedBox(height: _isDesktop ? 20 : 16),
-          
+
           TextFormField(
             controller: _passwordController,
             obscureText: _obscurePassword,
@@ -201,7 +212,10 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
               filled: true,
               fillColor: Colors.grey.shade50,
               suffixIcon: IconButton(
-                icon: Icon(_obscurePassword ? Icons.visibility_outlined : Icons.visibility_off_outlined, size: _isDesktop ? 24 : 20),
+                icon: Icon(
+                  _obscurePassword ? Icons.visibility_outlined : Icons.visibility_off_outlined,
+                  size: _isDesktop ? 24 : 20,
+                ),
                 onPressed: () => setState(() => _obscurePassword = !_obscurePassword),
               ),
             ),
@@ -236,12 +250,17 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
             ),
 
           ElevatedButton(
-            onPressed: authProvider.isLoading ? null : () async {
-              if (_formKey.currentState!.validate()) {
-                final success = await authProvider.login(_emailController.text, _passwordController.text);
-                if (success && mounted) context.go('/');
-              }
-            },
+            onPressed: authProvider.isLoading
+                ? null
+                : () async {
+                    if (_formKey.currentState!.validate()) {
+                      final success = await authProvider.login(
+                        _emailController.text,
+                        _passwordController.text,
+                      );
+                      if (success && mounted) context.go('/');
+                    }
+                  },
             style: ElevatedButton.styleFrom(
               padding: EdgeInsets.symmetric(vertical: _isDesktop ? 18 : 16),
               backgroundColor: Colors.orange.shade700,
@@ -250,14 +269,24 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
               elevation: 2,
             ),
             child: authProvider.isLoading
-                ? const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2))
-                : Text('Sign In', style: TextStyle(fontSize: _isDesktop ? 18 : 16, fontWeight: FontWeight.bold)),
+                ? const SizedBox(
+                    height: 20,
+                    width: 20,
+                    child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2),
+                  )
+                : Text(
+                    'Sign In',
+                    style: TextStyle(fontSize: _isDesktop ? 18 : 16, fontWeight: FontWeight.bold),
+                  ),
           ),
           SizedBox(height: _isDesktop ? 20 : 16),
-          
+
           TextButton(
             onPressed: () => context.push('/register'),
-            child: Text('Don\'t have an account? Sign Up', style: TextStyle(color: Colors.orange.shade700)),
+            child: Text(
+              'Don\'t have an account? Sign Up',
+              style: TextStyle(color: Colors.orange.shade700),
+            ),
           ),
         ],
       ),

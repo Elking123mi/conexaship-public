@@ -7,9 +7,7 @@ class OrdersScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Mis Pedidos'),
-      ),
+      appBar: AppBar(title: const Text('Mis Pedidos')),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(24),
@@ -18,15 +16,9 @@ class OrdersScreen extends StatelessWidget {
             children: [
               const Icon(Icons.receipt_long, size: 100),
               const SizedBox(height: 24),
-              Text(
-                'Sin Pedidos',
-                style: Theme.of(context).textTheme.headlineSmall,
-              ),
+              Text('Sin Pedidos', style: Theme.of(context).textTheme.headlineSmall),
               const SizedBox(height: 16),
-              const Text(
-                'Aún no has realizado ningún pedido',
-                textAlign: TextAlign.center,
-              ),
+              const Text('Aún no has realizado ningún pedido', textAlign: TextAlign.center),
               const SizedBox(height: 32),
               ElevatedButton(
                 onPressed: () => context.go('/'),

@@ -66,7 +66,9 @@ class ApiService {
 
     final response = await _get(endpoint);
     if (response.statusCode == 200) {
-      final List<dynamic> data = jsonDecode(response.body);
+      final Map<String, dynamic> responseData = jsonDecode(response.body);
+      // El backend devuelve {products: [...], count: 12}
+      final List<dynamic> data = responseData['products'] ?? responseData;
       return data.map((json) => Product.fromJson(json)).toList();
     }
     throw Exception('Failed to load products');

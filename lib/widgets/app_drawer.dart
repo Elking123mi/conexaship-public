@@ -20,10 +20,7 @@ class AppDrawer extends StatelessWidget {
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                colors: [
-                  Colors.orange.shade700,
-                  Colors.orange.shade400,
-                ],
+                colors: [Colors.orange.shade700, Colors.orange.shade400],
               ),
             ),
             currentAccountPicture: CircleAvatar(
@@ -41,10 +38,7 @@ class AppDrawer extends StatelessWidget {
             ),
             accountName: Text(
               customer?.fullName ?? 'Guest',
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             accountEmail: Text(customer?.email ?? 'Not authenticated'),
           ),
@@ -206,7 +200,11 @@ class AppDrawer extends StatelessWidget {
                       context: context,
                       applicationName: 'Conexa Ship',
                       applicationVersion: '1.0.0',
-                      applicationIcon: const Icon(Icons.shopping_bag, size: 48, color: Colors.orange),
+                      applicationIcon: const Icon(
+                        Icons.shopping_bag,
+                        size: 48,
+                        color: Colors.orange,
+                      ),
                     );
                   },
                 ),
@@ -220,18 +218,13 @@ class AppDrawer extends StatelessWidget {
           if (authProvider.isLoggedIn)
             Container(
               decoration: BoxDecoration(
-                border: Border(
-                  top: BorderSide(color: Colors.grey.shade300),
-                ),
+                border: Border(top: BorderSide(color: Colors.grey.shade300)),
               ),
               child: ListTile(
                 leading: const Icon(Icons.logout, color: Colors.red),
                 title: const Text(
                   'Sign Out',
-                  style: TextStyle(
-                    color: Colors.red,
-                    fontWeight: FontWeight.w600,
-                  ),
+                  style: TextStyle(color: Colors.red, fontWeight: FontWeight.w600),
                 ),
                 onTap: () async {
                   context.pop();
@@ -245,18 +238,13 @@ class AppDrawer extends StatelessWidget {
           else
             Container(
               decoration: BoxDecoration(
-                border: Border(
-                  top: BorderSide(color: Colors.grey.shade300),
-                ),
+                border: Border(top: BorderSide(color: Colors.grey.shade300)),
               ),
               child: ListTile(
                 leading: Icon(Icons.login, color: Colors.orange.shade700),
                 title: Text(
                   'Sign In',
-                  style: TextStyle(
-                    color: Colors.orange.shade700,
-                    fontWeight: FontWeight.w600,
-                  ),
+                  style: TextStyle(color: Colors.orange.shade700, fontWeight: FontWeight.w600),
                 ),
                 onTap: () {
                   context.pop();
@@ -306,12 +294,7 @@ class _DrawerItem extends StatelessWidget {
   final String? badge;
   final VoidCallback onTap;
 
-  const _DrawerItem({
-    required this.icon,
-    required this.title,
-    this.badge,
-    required this.onTap,
-  });
+  const _DrawerItem({required this.icon, required this.title, this.badge, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -323,10 +306,7 @@ class _DrawerItem extends StatelessWidget {
           if (badge != null)
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-              decoration: BoxDecoration(
-                color: Colors.red,
-                borderRadius: BorderRadius.circular(12),
-              ),
+              decoration: BoxDecoration(color: Colors.red, borderRadius: BorderRadius.circular(12)),
               child: Text(
                 badge!,
                 style: const TextStyle(

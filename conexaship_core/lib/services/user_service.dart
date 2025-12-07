@@ -15,18 +15,20 @@ class UserService {
     List<String> roles = const ["operator"],
     List<String> allowedApps = const ["conexaship"],
   }) async {
-    final response = await http.post(
-      Uri.parse('${ApiConfig.baseUrl}/api/v1/auth/register'),
-      headers: {'Content-Type': 'application/json'},
-      body: jsonEncode({
-        'username': username,
-        'email': email,
-        'password': password,
-        'full_name': name,  // ✅ CORREGIDO: backend espera 'full_name', no 'name'
-        'roles': roles,
-        'allowed_apps': allowedApps,
-      }),
-    ).timeout(ApiConfig.timeout);
+    final response = await http
+        .post(
+          Uri.parse('${ApiConfig.baseUrl}/api/v1/auth/register'),
+          headers: {'Content-Type': 'application/json'},
+          body: jsonEncode({
+            'username': username,
+            'email': email,
+            'password': password,
+            'full_name': name, // ✅ CORREGIDO: backend espera 'full_name', no 'name'
+            'roles': roles,
+            'allowed_apps': allowedApps,
+          }),
+        )
+        .timeout(ApiConfig.timeout);
 
     if (response.statusCode == 201) {
       return jsonDecode(response.body);
@@ -49,21 +51,23 @@ class UserService {
     final accessToken = await _authService.getAccessToken();
     if (accessToken == null) throw Exception('No autenticado');
 
-    final response = await http.post(
-      Uri.parse('${ApiConfig.baseUrl}/api/v1/users'),
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer $accessToken',
-      },
-      body: jsonEncode({
-        'username': username,
-        'email': email,
-        'password': password,
-        'full_name': name,  // ✅ CORREGIDO: consistente con registerUser
-        'roles': roles,
-        'allowed_apps': allowedApps,
-      }),
-    ).timeout(ApiConfig.timeout);
+    final response = await http
+        .post(
+          Uri.parse('${ApiConfig.baseUrl}/api/v1/users'),
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer $accessToken',
+          },
+          body: jsonEncode({
+            'username': username,
+            'email': email,
+            'password': password,
+            'full_name': name, // ✅ CORREGIDO: consistente con registerUser
+            'roles': roles,
+            'allowed_apps': allowedApps,
+          }),
+        )
+        .timeout(ApiConfig.timeout);
 
     if (response.statusCode == 201) {
       return jsonDecode(response.body);

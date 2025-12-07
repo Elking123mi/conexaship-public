@@ -19,16 +19,13 @@ class DashboardScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Dashboard'),
         actions: [
-            IconButton(
+          IconButton(
             icon: const Icon(Icons.notifications),
             onPressed: () {
               // TODO: View notifications
             },
           ),
-          IconButton(
-            icon: const Icon(Icons.shopping_cart),
-            onPressed: () => context.push('/cart'),
-          ),
+          IconButton(icon: const Icon(Icons.shopping_cart), onPressed: () => context.push('/cart')),
         ],
       ),
       drawer: const AppDrawer(),
@@ -40,18 +37,12 @@ class DashboardScreen extends StatelessWidget {
             // Personalized greeting
             Text(
               'Hello, ${customer?.firstName ?? "User"}! 👋',
-              style: TextStyle(
-                fontSize: isDesktop ? 32 : 24,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(fontSize: isDesktop ? 32 : 24, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
             Text(
               'Welcome to your control panel',
-              style: TextStyle(
-                fontSize: isDesktop ? 18 : 16,
-                color: Colors.grey[600],
-              ),
+              style: TextStyle(fontSize: isDesktop ? 18 : 16, color: Colors.grey[600]),
             ),
             const SizedBox(height: 24),
 
@@ -170,10 +161,7 @@ class DashboardScreen extends StatelessWidget {
             // Quick Access
             Text(
               'Quick Access',
-              style: TextStyle(
-                fontSize: isDesktop ? 24 : 20,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(fontSize: isDesktop ? 24 : 20, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
             GridView.count(
@@ -240,10 +228,7 @@ class DashboardScreen extends StatelessWidget {
             // Recent Activity
             Text(
               'Recent Activity',
-              style: TextStyle(
-                fontSize: isDesktop ? 24 : 20,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(fontSize: isDesktop ? 24 : 20, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
             _ActivityCard(
@@ -282,22 +267,13 @@ class DashboardScreen extends StatelessWidget {
               width: double.infinity,
               padding: const EdgeInsets.all(24),
               decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    Colors.orange.shade700,
-                    Colors.orange.shade400,
-                  ],
-                ),
+                gradient: LinearGradient(colors: [Colors.orange.shade700, Colors.orange.shade400]),
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Icon(
-                    Icons.card_giftcard,
-                    color: Colors.white,
-                    size: 48,
-                  ),
+                  const Icon(Icons.card_giftcard, color: Colors.white, size: 48),
                   const SizedBox(height: 16),
                   Text(
                     'FREE Shipping!',
@@ -321,15 +297,9 @@ class DashboardScreen extends StatelessWidget {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.white,
                       foregroundColor: Colors.orange.shade700,
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 32,
-                        vertical: 16,
-                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                     ),
-                    child: const Text(
-                      'Shop Now',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
+                    child: const Text('Shop Now', style: TextStyle(fontWeight: FontWeight.bold)),
                   ),
                 ],
               ),
@@ -361,7 +331,7 @@ class _QuickStatCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDesktop = MediaQuery.of(context).size.width > 800;
-    
+
     return Card(
       elevation: 4,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -386,19 +356,13 @@ class _QuickStatCard extends StatelessWidget {
               const SizedBox(height: 4),
               Text(
                 title,
-                style: TextStyle(
-                  fontSize: isDesktop ? 16 : 14,
-                  fontWeight: FontWeight.w600,
-                ),
+                style: TextStyle(fontSize: isDesktop ? 16 : 14, fontWeight: FontWeight.w600),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 4),
               Text(
                 subtitle,
-                style: TextStyle(
-                  fontSize: isDesktop ? 14 : 12,
-                  color: Colors.grey[600],
-                ),
+                style: TextStyle(fontSize: isDesktop ? 14 : 12, color: Colors.grey[600]),
                 textAlign: TextAlign.center,
               ),
             ],
@@ -435,19 +399,13 @@ class _QuickAccessCard extends StatelessWidget {
           children: [
             Container(
               padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: color.withOpacity(0.1),
-                shape: BoxShape.circle,
-              ),
+              decoration: BoxDecoration(color: color.withOpacity(0.1), shape: BoxShape.circle),
               child: Icon(icon, size: 32, color: color),
             ),
             const SizedBox(height: 8),
             Text(
               title,
-              style: const TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w600,
-              ),
+              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
               textAlign: TextAlign.center,
             ),
           ],
@@ -479,29 +437,17 @@ class _ActivityCard extends StatelessWidget {
       child: ListTile(
         leading: Container(
           padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: color.withOpacity(0.1),
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: color.withOpacity(0.1), shape: BoxShape.circle),
           child: Icon(icon, color: color),
         ),
-        title: Text(
-          title,
-          style: const TextStyle(fontWeight: FontWeight.w600),
-        ),
+        title: Text(title, style: const TextStyle(fontWeight: FontWeight.w600)),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 4),
             Text(subtitle),
             const SizedBox(height: 4),
-            Text(
-              time,
-              style: TextStyle(
-                fontSize: 12,
-                color: Colors.grey[600],
-              ),
-            ),
+            Text(time, style: TextStyle(fontSize: 12, color: Colors.grey[600])),
           ],
         ),
         isThreeLine: true,

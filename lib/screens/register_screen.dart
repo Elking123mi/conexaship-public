@@ -26,9 +26,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     final authProvider = Provider.of<AuthProvider>(context);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Create Account'),
-      ),
+      appBar: AppBar(title: const Text('Create Account')),
       body: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(24),
@@ -42,12 +40,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   Text(
                     'Sign Up for ConexaShip',
                     textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: Theme.of(
+                      context,
+                    ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 24),
-                  
+
                   TextFormField(
                     controller: _firstNameController,
                     decoration: const InputDecoration(
@@ -55,12 +53,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       prefixIcon: Icon(Icons.person),
                       border: OutlineInputBorder(),
                     ),
-                    validator: (value) => value == null || value.isEmpty 
-                        ? 'Please enter your first name' 
-                        : null,
+                    validator: (value) =>
+                        value == null || value.isEmpty ? 'Please enter your first name' : null,
                   ),
                   const SizedBox(height: 16),
-                  
+
                   TextFormField(
                     controller: _lastNameController,
                     decoration: const InputDecoration(
@@ -68,12 +65,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       prefixIcon: Icon(Icons.person_outline),
                       border: OutlineInputBorder(),
                     ),
-                    validator: (value) => value == null || value.isEmpty 
-                        ? 'Please enter your last name' 
-                        : null,
+                    validator: (value) =>
+                        value == null || value.isEmpty ? 'Please enter your last name' : null,
                   ),
                   const SizedBox(height: 16),
-                  
+
                   TextFormField(
                     controller: _emailController,
                     keyboardType: TextInputType.emailAddress,
@@ -93,7 +89,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     },
                   ),
                   const SizedBox(height: 16),
-                  
+
                   TextFormField(
                     controller: _phoneController,
                     keyboardType: TextInputType.phone,
@@ -104,7 +100,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  
+
                   TextFormField(
                     controller: _passwordController,
                     obscureText: _obscurePassword,
@@ -113,9 +109,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       prefixIcon: const Icon(Icons.lock),
                       border: const OutlineInputBorder(),
                       suffixIcon: IconButton(
-                        icon: Icon(
-                          _obscurePassword ? Icons.visibility : Icons.visibility_off,
-                        ),
+                        icon: Icon(_obscurePassword ? Icons.visibility : Icons.visibility_off),
                         onPressed: () {
                           setState(() {
                             _obscurePassword = !_obscurePassword;
@@ -134,7 +128,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     },
                   ),
                   const SizedBox(height: 16),
-                  
+
                   TextFormField(
                     controller: _confirmPasswordController,
                     obscureText: _obscureConfirmPassword,
@@ -171,10 +165,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         borderRadius: BorderRadius.circular(8),
                         border: Border.all(color: Colors.red),
                       ),
-                      child: Text(
-                        authProvider.error!,
-                        style: const TextStyle(color: Colors.red),
-                      ),
+                      child: Text(authProvider.error!, style: const TextStyle(color: Colors.red)),
                     ),
 
                   ElevatedButton(
@@ -187,11 +178,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 lastName: _lastNameController.text,
                                 email: _emailController.text,
                                 password: _passwordController.text,
-                                phone: _phoneController.text.isEmpty 
-                                    ? null 
-                                    : _phoneController.text,
+                                phone: _phoneController.text.isEmpty ? null : _phoneController.text,
                               );
-                              
+
                               if (success && mounted) {
                                 context.go('/');
                               }
@@ -206,10 +195,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ? const SizedBox(
                             height: 20,
                             width: 20,
-                            child: CircularProgressIndicator(
-                              color: Colors.white,
-                              strokeWidth: 2,
-                            ),
+                            child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2),
                           )
                         : const Text('Sign Up', style: TextStyle(fontSize: 16)),
                   ),

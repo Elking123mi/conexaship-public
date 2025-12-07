@@ -27,14 +27,14 @@ class ProductsProvider with ChangeNotifier {
 
     try {
       _products = await _apiService.getProducts(category: category);
-      
+
       // Mock data if API is not available
       if (_products.isEmpty) {
         _products = _getMockProducts();
       }
-      
+
       _featuredProducts = _products.where((p) => p.isOnSale).take(10).toList();
-      
+
       _isLoading = false;
       notifyListeners();
     } catch (e) {
@@ -54,7 +54,7 @@ class ProductsProvider with ChangeNotifier {
         (p) => p.id == id,
         orElse: () => Product(name: '', description: '', price: 0, stock: 0),
       );
-      
+
       if (product.name.isNotEmpty) {
         return product;
       }
@@ -79,15 +79,16 @@ class ProductsProvider with ChangeNotifier {
 
   Future<List<Product>> searchProducts(String query) async {
     if (query.isEmpty) return [];
-    
+
     try {
       return await _apiService.searchProducts(query);
     } catch (e) {
       // Search in loaded products
       return _products
-          .where((p) => 
-            p.name.toLowerCase().contains(query.toLowerCase()) ||
-            p.description.toLowerCase().contains(query.toLowerCase())
+          .where(
+            (p) =>
+                p.name.toLowerCase().contains(query.toLowerCase()) ||
+                p.description.toLowerCase().contains(query.toLowerCase()),
           )
           .toList();
     }
@@ -104,7 +105,8 @@ class ProductsProvider with ChangeNotifier {
       Product(
         id: 1,
         name: 'Laptop HP Pavilion',
-        description: 'Laptop potente para trabajo y entretenimiento. Intel Core i5, 8GB RAM, 256GB SSD.',
+        description:
+            'Laptop potente para trabajo y entretenimiento. Intel Core i5, 8GB RAM, 256GB SSD.',
         price: 12999.00,
         compareAtPrice: 15999.00,
         stock: 15,

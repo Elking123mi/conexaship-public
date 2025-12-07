@@ -36,7 +36,7 @@ class AuthProvider with ChangeNotifier {
     try {
       final data = await _authService.login(email, password);
       final user = data['user'] as Map<String, dynamic>;
-      
+
       // ✅ Validar que tenga acceso a conexaship O vanelux (usuarios pueden estar en cualquiera)
       final allowedApps = List<String>.from(user['allowed_apps'] ?? []);
       if (!allowedApps.contains('conexaship') && !allowedApps.contains('vanelux')) {
@@ -46,7 +46,7 @@ class AuthProvider with ChangeNotifier {
         notifyListeners();
         return false;
       }
-      
+
       _currentCustomer = Customer.fromJson(user);
       _isLoading = false;
       notifyListeners();
@@ -90,9 +90,9 @@ class AuthProvider with ChangeNotifier {
         password: password,
         name: '$firstName $lastName',
         roles: ['client'],
-        allowedApps: ['conexaship', 'vanelux'],  // ✅ Acceso a AMBAS plataformas
+        allowedApps: ['conexaship', 'vanelux'], // ✅ Acceso a AMBAS plataformas
       );
-      
+
       // Hacer login automáticamente después del registro
       await _authService.login(email, password);
       _currentCustomer = Customer.fromJson(user);

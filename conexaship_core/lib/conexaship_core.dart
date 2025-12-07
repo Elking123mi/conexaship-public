@@ -1,4 +1,4 @@
-library conexaship_core;
+library;
 
 // Models
 export 'models/customer.dart';
@@ -7,6 +7,7 @@ export 'models/product.dart';
 export 'models/order.dart';
 export 'models/attendance.dart';
 export 'models/user.dart';
+export 'models/vendor.dart';
 
 // Config
 export 'config/api_config.dart';

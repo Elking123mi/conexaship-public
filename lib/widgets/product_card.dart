@@ -6,10 +6,7 @@ import 'package:conexaship_core/conexaship_core.dart';
 class ProductCard extends StatelessWidget {
   final Product product;
 
-  const ProductCard({
-    super.key,
-    required this.product,
-  });
+  const ProductCard({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +15,7 @@ class ProductCard extends StatelessWidget {
 
     return Card(
       elevation: 2,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: InkWell(
         onTap: () => context.push('/product/${product.id}'),
         borderRadius: BorderRadius.circular(12),
@@ -45,7 +40,11 @@ class ProductCard extends StatelessWidget {
                               product.images!.first,
                               fit: BoxFit.contain,
                               errorBuilder: (context, error, stackTrace) {
-                                return Icon(Icons.image, size: isMobile ? 32 : 48, color: Colors.grey);
+                                return Icon(
+                                  Icons.image,
+                                  size: isMobile ? 32 : 48,
+                                  color: Colors.grey,
+                                );
                               },
                             )
                           : Icon(Icons.image, size: isMobile ? 32 : 48, color: Colors.grey),
@@ -56,7 +55,10 @@ class ProductCard extends StatelessWidget {
                       top: 4,
                       right: 4,
                       child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: isMobile ? 4 : 8, vertical: isMobile ? 2 : 4),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: isMobile ? 4 : 8,
+                          vertical: isMobile ? 2 : 4,
+                        ),
                         decoration: BoxDecoration(
                           color: Colors.red,
                           borderRadius: BorderRadius.circular(4),
@@ -93,7 +95,7 @@ class ProductCard extends StatelessWidget {
                 ],
               ),
             ),
-            
+
             // Info
             Expanded(
               flex: 2,
@@ -107,10 +109,7 @@ class ProductCard extends StatelessWidget {
                       product.name,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: isMobile ? 12 : 14,
-                      ),
+                      style: TextStyle(fontWeight: FontWeight.w600, fontSize: isMobile ? 12 : 14),
                     ),
                     SizedBox(height: isMobile ? 2 : 4),
                     if (product.rating != null)
