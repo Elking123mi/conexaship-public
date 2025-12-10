@@ -30,7 +30,7 @@ class UserService {
         )
         .timeout(ApiConfig.timeout);
 
-    if (response.statusCode == 201) {
+    if (response.statusCode == 200 || response.statusCode == 201) {
       return jsonDecode(response.body);
     } else if (response.statusCode == 400) {
       throw Exception('Usuario o email ya existe');
