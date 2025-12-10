@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 /// Pantalla de registro para vendedores
 class VendorRegisterScreen extends StatefulWidget {
