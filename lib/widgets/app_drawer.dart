@@ -20,7 +20,7 @@ class AppDrawer extends StatelessWidget {
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                colors: [Colors.orange.shade700, Colors.orange.shade400],
+                colors: [const Color(0xFF0F4C81), const Color(0xFF44D7B6)],
               ),
             ),
             currentAccountPicture: CircleAvatar(
@@ -28,10 +28,10 @@ class AppDrawer extends StatelessWidget {
               child: customer != null
                   ? Text(
                       _getInitials(customer.fullName),
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 32,
                         fontWeight: FontWeight.bold,
-                        color: Colors.orange.shade700,
+                        color: Color(0xFF0F4C81),
                       ),
                     )
                   : const Icon(Icons.person, size: 48),
@@ -203,7 +203,7 @@ class AppDrawer extends StatelessWidget {
                       applicationIcon: const Icon(
                         Icons.shopping_bag,
                         size: 48,
-                        color: Colors.orange,
+                        color: const Color(0xFF44D7B6),
                       ),
                     );
                   },
@@ -241,10 +241,10 @@ class AppDrawer extends StatelessWidget {
                 border: Border(top: BorderSide(color: Colors.grey.shade300)),
               ),
               child: ListTile(
-                leading: Icon(Icons.login, color: Colors.orange.shade700),
-                title: Text(
+                leading: const Icon(Icons.login, color: Color(0xFF44D7B6)),
+                title: const Text(
                   'Sign In',
-                  style: TextStyle(color: Colors.orange.shade700, fontWeight: FontWeight.w600),
+                  style: TextStyle(color: Color(0xFF44D7B6), fontWeight: FontWeight.w600),
                 ),
                 onTap: () {
                   context.pop();
@@ -299,7 +299,7 @@ class _DrawerItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Icon(icon, color: Colors.orange.shade700),
+      leading: Icon(icon, color: const Color(0xFF44D7B6)),
       title: Row(
         children: [
           Expanded(child: Text(title)),

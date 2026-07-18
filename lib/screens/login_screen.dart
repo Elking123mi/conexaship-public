@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 import '../providers/auth_provider.dart';
@@ -48,11 +48,11 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
 
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [Colors.orange.shade700, Colors.orange.shade400, Colors.orange.shade200],
+            colors: [Color(0xFF0F4C81), Color(0xFF19598A), Color(0xFF44D7B6)],
           ),
         ),
         child: Center(
@@ -72,45 +72,64 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
 
   Widget _buildDesktopLayout(AuthProvider authProvider) {
     return Card(
-      elevation: 12,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+      elevation: 18,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28)),
       child: SizedBox(
-        width: 900,
-        height: 600,
+        width: 980,
+        height: 620,
         child: Row(
           children: [
             Expanded(
               flex: 5,
               child: Container(
-                decoration: BoxDecoration(
+                padding: const EdgeInsets.all(44),
+                decoration: const BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
-                    colors: [Colors.orange.shade600, Colors.orange.shade800],
+                    colors: [Color(0xFF0F4C81), Color(0xFF19598A), Color(0xFF44D7B6)],
                   ),
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(24),
-                    bottomLeft: Radius.circular(24),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(28),
+                    bottomLeft: Radius.circular(28),
                   ),
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Icon(Icons.local_shipping_rounded, size: 120, color: Colors.white),
+                    const Icon(Icons.flash_on_rounded, size: 72, color: Colors.white),
                     const SizedBox(height: 24),
                     const Text(
-                      'CONEXASHIP',
+                      'Bienvenido a ConexaShip',
                       style: TextStyle(
-                        fontSize: 42,
+                        fontSize: 38,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
-                        letterSpacing: 2,
                       ),
                     ),
-                    const SizedBox(height: 12),
-                    Text(
-                      'Shipping Management System',
-                      style: TextStyle(fontSize: 18, color: Colors.white.withOpacity(0.9)),
+                    const SizedBox(height: 16),
+                    const Text(
+                      'Compra productos, gestiona tu cuenta y recibe descuentos inteligentes con nuestro asistente IA.',
+                      style: TextStyle(fontSize: 18, color: Colors.white70, height: 1.5),
+                    ),
+                    const SizedBox(height: 32),
+                    Container(
+                      padding: const EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.12),
+                        borderRadius: BorderRadius.circular(22),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: const [
+                          Text('• Accede rápido a tu historial de compras', style: TextStyle(color: Colors.white)),
+                          SizedBox(height: 10),
+                          Text('• Descubre cupones automáticos', style: TextStyle(color: Colors.white)),
+                          SizedBox(height: 10),
+                          Text('• Navega con un diseño ágil y moderno', style: TextStyle(color: Colors.white)),
+                        ],
+                      ),
                     ),
                   ],
                 ),
@@ -119,7 +138,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
             Expanded(
               flex: 5,
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 48, vertical: 32),
+                padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 36),
                 child: _buildLoginForm(authProvider),
               ),
             ),
@@ -131,31 +150,27 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
 
   Widget _buildMobileLayout(AuthProvider authProvider) {
     return Card(
-      elevation: 8,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      elevation: 10,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
       child: Padding(
-        padding: const EdgeInsets.all(28),
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 28),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.local_shipping_rounded, size: 70, color: Colors.orange.shade700),
+            const Icon(Icons.flash_on_rounded, size: 64, color: Color(0xFF44D7B6)),
             const SizedBox(height: 16),
-            Text(
-              'CONEXASHIP',
-              style: TextStyle(
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
-                color: Colors.orange.shade700,
-                letterSpacing: 1.5,
-              ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              'Shipping Management System',
+            const Text(
+              'Inicia sesión en ConexaShip',
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
+              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Color(0xFF0F4C81)),
             ),
-            const SizedBox(height: 32),
+            const SizedBox(height: 10),
+            Text(
+              'Tu tienda inteligente con ofertas, envío rápido y asistente IA para cupones.',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 14, color: Colors.grey[700], height: 1.6),
+            ),
+            const SizedBox(height: 28),
             _buildLoginForm(authProvider),
           ],
         ),
@@ -171,46 +186,45 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
-            'Sign In',
+            'Iniciar sesión',
             style: TextStyle(
               fontSize: _isDesktop ? 32 : 24,
               fontWeight: FontWeight.bold,
-              color: Colors.grey.shade800,
+              color: Colors.blueGrey.shade900,
             ),
           ),
-          SizedBox(height: _isDesktop ? 32 : 24),
+          SizedBox(height: _isDesktop ? 28 : 20),
 
           TextFormField(
             controller: _emailController,
             keyboardType: TextInputType.emailAddress,
             style: TextStyle(fontSize: _isDesktop ? 16 : 14),
             decoration: InputDecoration(
-              labelText: 'Email',
-              hintText: 'example@email.com',
+              labelText: 'Correo electrónico',
+              hintText: 'ejemplo@mail.com',
               prefixIcon: Icon(Icons.email_outlined, size: _isDesktop ? 24 : 20),
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+              border: OutlineInputBorder(borderRadius: BorderRadius.circular(14)),
               filled: true,
-              fillColor: Colors.grey.shade50,
+              fillColor: Colors.grey.shade100,
             ),
             validator: (value) {
-              if (value == null || value.isEmpty) return 'Please enter your email';
-              if (!value.contains('@')) return 'Enter a valid email';
+              if (value == null || value.isEmpty) return 'Ingrese su correo electrónico';
+              if (!value.contains('@')) return 'Ingrese un correo válido';
               return null;
             },
           ),
-          SizedBox(height: _isDesktop ? 20 : 16),
+          SizedBox(height: _isDesktop ? 18 : 14),
 
           TextFormField(
             controller: _passwordController,
             obscureText: _obscurePassword,
             style: TextStyle(fontSize: _isDesktop ? 16 : 14),
             decoration: InputDecoration(
-              labelText: 'Password',
-              hintText: '',
+              labelText: 'Contraseña',
               prefixIcon: Icon(Icons.lock_outline, size: _isDesktop ? 24 : 20),
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+              border: OutlineInputBorder(borderRadius: BorderRadius.circular(14)),
               filled: true,
-              fillColor: Colors.grey.shade50,
+              fillColor: Colors.grey.shade100,
               suffixIcon: IconButton(
                 icon: Icon(
                   _obscurePassword ? Icons.visibility_outlined : Icons.visibility_off_outlined,
@@ -220,11 +234,18 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
               ),
             ),
             validator: (value) {
-              if (value == null || value.isEmpty) return 'Please enter your password';
+              if (value == null || value.isEmpty) return 'Ingrese su contraseña';
               return null;
             },
           ),
-          SizedBox(height: _isDesktop ? 24 : 20),
+          SizedBox(height: _isDesktop ? 16 : 14),
+          Align(
+            alignment: Alignment.centerRight,
+            child: TextButton(
+              onPressed: () {},
+              child: const Text('¿Olvidaste tu contraseña?'),
+            ),
+          ),
 
           if (authProvider.error != null)
             Container(
@@ -263,9 +284,9 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                   },
             style: ElevatedButton.styleFrom(
               padding: EdgeInsets.symmetric(vertical: _isDesktop ? 18 : 16),
-              backgroundColor: Colors.orange.shade700,
+              backgroundColor: const Color(0xFF44D7B6),
               foregroundColor: Colors.white,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
               elevation: 2,
             ),
             child: authProvider.isLoading
@@ -275,17 +296,39 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                     child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2),
                   )
                 : Text(
-                    'Sign In',
+                    'Continuar',
                     style: TextStyle(fontSize: _isDesktop ? 18 : 16, fontWeight: FontWeight.bold),
                   ),
           ),
-          SizedBox(height: _isDesktop ? 20 : 16),
+          SizedBox(height: _isDesktop ? 18 : 16),
 
+          Row(
+            children: [
+              Expanded(child: Divider(color: Colors.grey.shade300)),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                child: Text('o'),
+              ),
+              Expanded(child: Divider(color: Colors.grey.shade300)),
+            ],
+          ),
+          const SizedBox(height: 16),
+          OutlinedButton.icon(
+            onPressed: () {},
+            icon: const Icon(Icons.smart_toy, color: Color(0xFF44D7B6)),
+            label: const Text('Usar asistente IA'),
+            style: OutlinedButton.styleFrom(
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              side: const BorderSide(color: Color(0xFF44D7B6)),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+            ),
+          ),
+          SizedBox(height: _isDesktop ? 18 : 14),
           TextButton(
             onPressed: () => context.push('/register'),
-            child: Text(
-              'Don\'t have an account? Sign Up',
-              style: TextStyle(color: Colors.orange.shade700),
+            child: const Text(
+              '¿No tienes cuenta? Regístrate',
+              style: TextStyle(color: Color(0xFF44D7B6)),
             ),
           ),
         ],

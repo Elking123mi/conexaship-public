@@ -68,6 +68,9 @@ class _HomeScreenState extends State<HomeScreen> {
           // Categories Bar
           _buildCategoriesBar(),
 
+          // AI Coupon Assistant Banner
+          _buildAssistantBanner(),
+
           // Main Content
           Expanded(
             child: productsProvider.isLoading
@@ -120,7 +123,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
 
               // Logo
-              Icon(Icons.shopping_bag, color: Colors.orange.shade700, size: 24),
+              const Icon(Icons.shopping_bag, color: Color(0xFF44D7B6), size: 24),
               const SizedBox(width: 6),
               const Text(
                 'ConexaShip',
@@ -166,7 +169,7 @@ class _HomeScreenState extends State<HomeScreen> {
           style: const TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold),
         ),
         showBadge: cartProvider.isNotEmpty,
-        badgeStyle: badges.BadgeStyle(badgeColor: Colors.orange.shade700),
+        badgeStyle: badges.BadgeStyle(badgeColor: const Color(0xFF44D7B6)),
         child: const Padding(
           padding: EdgeInsets.all(8.0),
           child: Icon(Icons.shopping_cart, color: Colors.white, size: 24),
@@ -204,7 +207,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 // Logo
                 Row(
                   children: [
-                    Icon(Icons.shopping_bag, color: Colors.orange.shade700, size: 32),
+                    const Icon(Icons.shopping_bag, color: Color(0xFF44D7B6), size: 32),
                     const SizedBox(width: 8),
                     const Text(
                       'ConexaShip',
@@ -243,7 +246,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         Container(
                           decoration: BoxDecoration(
-                            color: Colors.orange.shade700,
+                            color: const Color(0xFF44D7B6),
                             borderRadius: const BorderRadius.only(
                               topRight: Radius.circular(8),
                               bottomRight: Radius.circular(8),
@@ -330,7 +333,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Row(
         children: [
           CircleAvatar(
-            backgroundColor: Colors.orange.shade700,
+            backgroundColor: const Color(0xFF44D7B6),
             radius: 18,
             child: Text(
               _getInitials(authProvider.currentCustomer?.fullName ?? 'U'),
@@ -459,7 +462,7 @@ class _HomeScreenState extends State<HomeScreen> {
           style: const TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold),
         ),
         showBadge: cartProvider.isNotEmpty,
-        badgeStyle: badges.BadgeStyle(badgeColor: Colors.orange.shade700),
+        badgeStyle: badges.BadgeStyle(badgeColor: const Color(0xFF44D7B6)),
         child: const Padding(
           padding: EdgeInsets.all(8.0),
           child: Row(
@@ -512,7 +515,7 @@ class _HomeScreenState extends State<HomeScreen> {
           Row(
             children: [
               CircleAvatar(
-                backgroundColor: Colors.orange.shade700,
+                backgroundColor: const Color(0xFF44D7B6),
                 radius: 32,
                 child: Text(
                   _getInitials(authProvider.currentCustomer?.fullName ?? 'U'),
@@ -584,7 +587,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   icon: Icons.credit_card,
                   title: 'Payments',
                   subtitle: 'Payment methods & cards',
-                  color: Colors.orange,
+                  color: const Color(0xFF44D7B6),
                   onTap: () {},
                 ),
               ),
@@ -650,7 +653,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Container(
       color: const Color(0xFF37475A),
-      height: isMobile ? 40 : 48,
+      height: isMobile ? 48 : 56,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         padding: EdgeInsets.symmetric(horizontal: isMobile ? 8 : 24),
@@ -664,13 +667,13 @@ class _HomeScreenState extends State<HomeScreen> {
               });
             },
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: isMobile ? 12 : 20),
+              padding: EdgeInsets.symmetric(horizontal: isMobile ? 14 : 22),
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 border: Border(
                   bottom: BorderSide(
-                    color: isSelected ? Colors.orange.shade700 : Colors.transparent,
-                    width: isMobile ? 2 : 3,
+                    color: isSelected ? const Color(0xFF44D7B6) : Colors.transparent,
+                    width: isMobile ? 3 : 4,
                   ),
                 ),
               ),
@@ -678,13 +681,74 @@ class _HomeScreenState extends State<HomeScreen> {
                 _categories[index],
                 style: TextStyle(
                   color: isSelected ? Colors.white : Colors.white70,
-                  fontSize: isMobile ? 12 : 14,
+                  fontSize: isMobile ? 13 : 15,
                   fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                 ),
               ),
             ),
           );
         },
+      ),
+    );
+  }
+
+  Widget _buildAssistantBanner() {
+    final isMobile = MediaQuery.of(context).size.width < 700;
+
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: isMobile ? 12 : 24, vertical: 16),
+      padding: EdgeInsets.symmetric(horizontal: isMobile ? 16 : 24, vertical: isMobile ? 18 : 22),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(22),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.06),
+            blurRadius: 20,
+            offset: const Offset(0, 8),
+          ),
+        ],
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: const Color(0xFF44D7B6).withOpacity(0.12),
+              borderRadius: BorderRadius.circular(18),
+            ),
+            child: const Icon(Icons.smart_toy, color: Color(0xFF44D7B6), size: 32),
+          ),
+          const SizedBox(width: 18),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: const [
+                Text(
+                  'Asistente IA de cupones disponible',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xFF0F4C81)),
+                ),
+                SizedBox(height: 6),
+                Text(
+                  'Pregúntale al asistente por ofertas, códigos de descuento y recomendaciones de compra personalizadas.',
+                  style: TextStyle(fontSize: 14, color: Colors.black87, height: 1.5),
+                ),
+              ],
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              // TODO: open assistant flow
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF44D7B6),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+            ),
+            child: const Text('Abrir asistente', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+          ),
+        ],
       ),
     );
   }
