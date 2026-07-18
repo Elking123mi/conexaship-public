@@ -84,7 +84,7 @@ class AuthProvider with ChangeNotifier {
     notifyListeners();
 
     try {
-      final user = await _userService.registerUser(
+      final result = await _userService.registerUser(
         username: email,
         email: email,
         password: password,
@@ -93,9 +93,24 @@ class AuthProvider with ChangeNotifier {
         allowedApps: ['conexaship', 'vanelux'], // ✅ Acceso a AMBAS plataformas
       );
 
-      // Hacer login automáticamente después del registro
-      await _authService.login(email, password);
-      _currentCustomer = Customer.fromJson(user);
+      final user = (result['user'] as Map<String, dynamic>?) ?? {};
+
+      // Intentar login automático — puede fallar si Supabase exige
+      // confirmación de email primero. Esto NO debe bloquear el registro:
+      // el usuario sigue el flujo normal de verificación por correo.
+      try {
+        await _authService.login(email, password);
+      } catch (_) {
+        // Cuenta creada pero pendiente de confirmar email. Continuamos igual.
+      }
+
+      _currentCustomer = Customer.fromJson({
+        'firstName': firstName,
+        'lastName': lastName,
+        'email': email,
+        'phone': phone,
+        ...user,
+      });
       _isLoading = false;
       notifyListeners();
       return true;

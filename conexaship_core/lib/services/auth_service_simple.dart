@@ -12,26 +12,27 @@ class AuthService {
   static const String _userDataKey = 'user_data';
 
   // ==================== LOGIN ====================
-  Future<Map<String, dynamic>> login(String username, String password) async {
+  Future<Map<String, dynamic>> login(String email, String password) async {
     final response = await http.post(
       Uri.parse(ApiConfig.authLoginUrl),
       headers: {'Content-Type': 'application/json'},
-      body: jsonEncode({'username': username, 'password': password}),
+      body: jsonEncode({'email': email, 'password': password}),
     ).timeout(ApiConfig.timeout);
 
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
-      
-      // Guardar tokens y usuario
-      await _storage.write(key: _accessTokenKey, value: data['access_token']);
+
+      // El backend devuelve 'token' (no 'access_token')
+      await _storage.write(key: _accessTokenKey, value: data['token']);
       await _storage.write(key: _refreshTokenKey, value: data['refresh_token']);
       await _storage.write(key: _userDataKey, value: jsonEncode(data['user']));
-      
+
       return data;
     } else if (response.statusCode == 401) {
       throw Exception('Usuario o contraseña incorrectos');
     } else {
-      throw Exception('Error de conexión: ${response.statusCode}');
+      final body = jsonDecode(response.body);
+      throw Exception(body['message'] ?? 'Error de conexión: ${response.statusCode}');
     }
   }
 
@@ -48,8 +49,10 @@ class AuthService {
 
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
-      await _storage.write(key: _accessTokenKey, value: data['access_token']);
-      // refresh_token se mantiene igual
+      await _storage.write(key: _accessTokenKey, value: data['token']);
+      if (data['refresh_token'] != null) {
+        await _storage.write(key: _refreshTokenKey, value: data['refresh_token']);
+      }
     } else {
       // Token expirado o revocado, forzar re-login
       await logout();

@@ -39,7 +39,7 @@ class Customer {
 
   factory Customer.fromJson(Map<String, dynamic> json) {
     return Customer(
-      id: json['id'] as int?,
+      id: json['id'] is int ? json['id'] as int : int.tryParse(json['id']?.toString() ?? ''),
       firstName: json['first_name'] ?? json['firstName'] ?? json['full_name']?.toString().split(' ').first ?? '',
       lastName: json['last_name'] ?? json['lastName'] ?? json['full_name']?.toString().split(' ').skip(1).join(' ') ?? '',
       email: json['email'] ?? json['username'] ?? '',
