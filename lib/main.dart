@@ -14,6 +14,7 @@ import 'screens/product_detail_screen.dart';
 import 'screens/cart_screen.dart';
 import 'screens/login_screen.dart';
 import 'screens/register_screen.dart';
+import 'screens/verify_email_screen.dart';
 import 'screens/checkout_screen.dart';
 import 'screens/orders_screen.dart';
 import 'screens/calculator_screen.dart';
@@ -87,6 +88,13 @@ final _router = GoRouter(
     GoRoute(path: '/cart', builder: (context, state) => const CartScreen()),
     GoRoute(path: '/login', builder: (context, state) => const LoginScreen()),
     GoRoute(path: '/register', builder: (context, state) => const RegisterScreen()),
+    GoRoute(
+      path: '/verify-email',
+      builder: (context, state) {
+        final email = (state.extra as String?) ?? '';
+        return VerifyEmailScreen(email: email);
+      },
+    ),
     GoRoute(path: '/checkout', builder: (context, state) => const CheckoutScreen()),
     GoRoute(path: '/orders', builder: (context, state) => const OrdersScreen()),
     // New screens
