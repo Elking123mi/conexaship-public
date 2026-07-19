@@ -9,7 +9,7 @@ class AppConstants {
   // API Configuration - Centralized Backend
   static const String apiBaseUrl = String.fromEnvironment(
     'API_BASE_URL',
-    defaultValue: 'https://web-production-700fe.up.railway.app',
+    defaultValue: 'https://conexaship-backend-production.up.railway.app',
   );
   static const String originWebAllowed = String.fromEnvironment(
     'ORIGIN_WEB_ALLOWED',
