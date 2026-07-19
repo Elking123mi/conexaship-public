@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:conexaship_core/conexaship_core.dart';
 
 const _kPrimary  = Color(0xFF0B3D6E);
 const _kAccent   = Color(0xFF00C9A7);
@@ -68,23 +71,73 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
     if (_code.length != 6) return;
     setState(() { _loading = true; _error = null; });
 
-    // Supabase maneja la confirmación por email con un link mágico.
-    // Aquí simulamos la verificación del OTP — en producción Supabase
-    // envía un link o un OTP que se verifica con supabase.auth.verifyOtp().
-    // Como la web ya recibe el token por link, mostramos la pantalla de éxito
-    // y redirigimos al login para que inicie sesión con su cuenta confirmada.
-    await Future.delayed(const Duration(milliseconds: 1200)); // simula llamada
+    try {
+      final response = await http.post(
+        Uri.parse('${ApiConfig.baseUrl}/api/v1/auth/verify-code'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({'email': widget.email, 'code': _code}),
+      ).timeout(const Duration(seconds: 15));
 
-    if (!mounted) return;
-    setState(() { _loading = false; _verified = true; });
+      final data = jsonDecode(response.body);
+
+      if (!mounted) return;
+
+      if (response.statusCode == 200 && data['success'] == true) {
+        setState(() { _loading = false; _verified = true; });
+      } else {
+        setState(() {
+          _loading = false;
+          _error = data['message'] ?? 'Código incorrecto';
+          // Limpiar campos si el código es incorrecto
+          for (final c in _ctrls) c.clear();
+          _nodes[0].requestFocus();
+        });
+      }
+    } catch (e) {
+      if (!mounted) return;
+      setState(() {
+        _loading = false;
+        _error = 'Error de conexión. Intenta de nuevo.';
+      });
+    }
   }
 
   Future<void> _resend() async {
     if (!_canResend) return;
-    setState(() { _error = null; });
-    // Aquí llamarías a tu backend: POST /api/v1/auth/resend-confirmation
-    // Por ahora reinicia el contador
-    _startCountdown();
+    setState(() { _error = null; _loading = true; });
+
+    try {
+      final response = await http.post(
+        Uri.parse('${ApiConfig.baseUrl}/api/v1/auth/send-verification-code'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({'email': widget.email}),
+      ).timeout(const Duration(seconds: 15));
+
+      final data = jsonDecode(response.body);
+
+      if (!mounted) return;
+      setState(() { _loading = false; });
+
+      if (response.statusCode == 200 && data['success'] == true) {
+        _startCountdown();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: const Text('✅ Código reenviado — revisa tu bandeja'),
+            backgroundColor: _kSuccess,
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          ),
+        );
+      } else {
+        setState(() { _error = data['message'] ?? 'Error al reenviar código'; });
+      }
+    } catch (e) {
+      if (!mounted) return;
+      setState(() {
+        _loading = false;
+        _error = 'Error de conexión al reenviar código';
+      });
+    }
     if (mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
